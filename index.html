@@ -165,7 +165,6 @@ nav.tabs{display:flex;gap:4px}
       <p class="desc">Informe seu e-mail corporativo e seu nome e crie a senha que você vai usar para entrar. Também use esta tela quando a Gente e Gestão liberar uma nova senha para você.</p>
       <label class="f" for="c-email">E-mail corporativo<input type="email" id="c-email" placeholder="nome.sobrenome@btsa.com.br" autocomplete="username"></label>
       <label class="f" for="c-nome">Nome completo<input type="text" id="c-nome" autocomplete="name"></label>
-      <label class="f" for="c-codigo" id="c-codigo-box" hidden>Código de ativação (só administradores)<input type="text" id="c-codigo" class="keep" autocomplete="off"></label>
       <label class="f" for="c-senha">Nova senha<input type="password" id="c-senha" autocomplete="new-password"></label>
       <label class="f" for="c-senha2">Repita a senha<input type="password" id="c-senha2" autocomplete="new-password"></label>
       <ul class="pwd-rules"><li>Mínimo de 8 caracteres</li><li>Pelo menos uma letra e um número</li><li>Não compartilhe sua senha com ninguém</li></ul>
@@ -182,38 +181,16 @@ nav.tabs{display:flex;gap:4px}
 
   <!-- GERENTE (também usado pelos masters na aba de teste) -->
   <section id="v-ger" hidden style="display:flex;flex-direction:column;gap:16px">
-    <div id="ger-teste" class="banner reopen" hidden><b>Modo teste.</b> Este é o seu próprio formulário de master, para testar e validar o fluxo. Ele aparece no painel marcado como teste e fica fora da exportação de “só devolvidos” de gerentes.</div>
+    <div id="ger-teste" class="banner reopen" hidden><b>Modo teste.</b> Estes são os seus próprios formulários de master, para testar e validar o fluxo. Eles aparecem no painel marcados como teste.</div>
     <div id="ger-wait" class="card notice" hidden>
       <h2>Cadastro recebido</h2>
-      <p class="desc" id="ger-wait-txt">Seu acesso foi registrado. A Kamila Luna (Gente e Gestão) vai conferir sua solicitação e informar quais departamentos você preenche. Recarregue a página mais tarde para ver se já foi liberado.</p>
-      <div class="row"><button class="btn" id="btn-recarregar">Verificar agora</button><button class="btn primary" id="btn-auto-lib" hidden>Liberar departamentos para mim</button></div>
+      <p class="desc" id="ger-wait-txt">Seu acesso foi registrado. A Kamila Luna (Gente e Gestão) vai conferir sua solicitação e liberar o formulário que você deve preencher. Clique em “Verificar agora” mais tarde para ver se já foi liberado.</p>
+      <div class="row"><button class="btn" id="btn-recarregar">Verificar agora</button><button class="btn primary" id="btn-auto-lib" hidden>Liberar formulários para mim</button></div>
     </div>
-    <div id="ger-main" hidden style="display:flex;flex-direction:column;gap:16px">
-      <div id="ger-banner"></div>
-      <div class="aviso"><span class="t">Importante</span>
-        O que você informar aqui é uma <b>previsão orçamentária</b> e ainda precisa ser <b>aprovada pela diretoria da sua área</b>. Preencher este formulário <b>não substitui</b> a abertura da vaga na <b>Gupy</b> nem o <b>formulário de aprovação de alteração de salário</b>: cada contratação ou reajuste continua seguindo o fluxo normal quando acontecer.
-      </div>
-      <div class="card">
-        <div class="q-title"><h2>Identificação do gestor</h2><span id="ger-status"></span></div>
-        <div class="grid2">
-          <label class="f" for="g-nome">Nome do gestor responsável<input type="text" id="g-nome"></label>
-          <label class="f" for="g-email">E-mail do gestor<input type="email" id="g-email" readonly></label>
-        </div>
-        <label class="check" for="g-ferias"><input type="checkbox" id="g-ferias"><span>Confirmo que já programei as férias da minha equipe no Painel de Gestão para 2027.</span></label>
-        <p class="muted" id="g-ferias-em" style="margin:0;font-size:12.5px" hidden></p>
-      </div>
-      <div class="card">
-        <div class="q-title"><h2>Departamentos liberados para você</h2><span class="muted" id="save-state" style="font-size:12px"></span></div>
-        <div class="deps" id="deps"></div>
-      </div>
-      <div class="card" id="dep-card"></div>
-      <div class="card" id="dev-card">
-        <h2>Devolver para a Kamila</h2>
-        <p class="desc">Quando terminar todos os departamentos, devolva o formulário. Depois da devolução o preenchimento fica <b>travado</b>: para alterar algo, a Gente e Gestão precisa reabrir.</p>
-        <ul id="dev-pend" class="msg err" style="margin:0;padding-left:18px" hidden></ul>
-        <div class="row" id="dev-acts"><button class="btn primary" id="btn-devolver">Devolver para a Kamila</button></div>
-        <p class="msg" id="dev-msg"></p>
-      </div>
+    <div id="ger-main" class="card" hidden>
+      <h2>Seus formulários</h2>
+      <p class="desc">Abra o formulário liberado para você. O preenchimento é salvo automaticamente; quando terminar, use “Devolver para a Gente e Gestão” no final do formulário.</p>
+      <div id="ger-forms" style="display:flex;flex-direction:column;gap:10px"></div>
     </div>
   </section>
 
@@ -222,7 +199,7 @@ nav.tabs{display:flex;gap:4px}
     <div class="kpis" id="kpis"></div>
     <div class="card" id="sol-card">
       <div class="q-title">
-        <div><h2>Solicitações de acesso</h2><p class="desc">Quem criou a senha e ainda não foi liberado. Confira o nome e o e-mail e aprove informando os departamentos, ou recuse.</p></div>
+        <div><h2>Solicitações de acesso</h2><p class="desc">Quem criou a senha e ainda não foi liberado. Confira o nome e o e-mail e aprove escolhendo o formulário (1, 2…), ou recuse.</p></div>
         <div class="row"><span class="muted" id="m-atualizado" style="font-size:12px"></span><button class="btn" id="m-refresh">Atualizar</button></div>
       </div>
       <div class="tbl-box"><table class="list" id="sol-tbl"></table></div>

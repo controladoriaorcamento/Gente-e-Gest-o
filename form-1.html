@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulário 1 · Orçamento 2027 Goiânia</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    --bg:#eef1f6; --surface:#ffffff; --surface-2:#e4e9f0;
+    --ink:#1c2a3a; --ink-soft:#55677d; --line:#c7d1dd; --line-strong:#9fb0c2;
+    --accent:#b3540b; --accent-2:#8a3f08; --accent-soft:#f6e3cc;
+    --good:#2f7d4f; --good-soft:#e1f0e6; --danger:#b23a3a; --danger-soft:#f8e3e3; --focus:#0d6efd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b2d52; --surface:#0f3a68; --surface-2:#134476;
+      --ink:#e4f2ff; --ink-soft:#9cc4e8; --line:#2f5f92; --line-strong:#4b7fb4;
+      --accent:#7be3f5; --accent-2:#40c4dd; --accent-soft:#123f5e;
+      --good:#7be08a; --good-soft:#154a34; --danger:#ff9c9c; --danger-soft:#4a2020; --focus:#7be3f5;
+    }
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    padding-inline:16px;padding-block:24px;
+  }
+  .wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:18px;}
+
+  .titleblock{background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:18px 22px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;justify-content:space-between;}
+  .titleblock h1{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:800;font-size:clamp(24px,5vw,34px);letter-spacing:0.01em;margin:0;color:var(--accent-2);}
+  @media (prefers-color-scheme: dark){ .titleblock h1{color:var(--accent);} }
+  .titleblock .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);display:flex;gap:16px;flex-wrap:wrap;}
+  .titleblock .meta b{color:var(--ink);font-weight:600;}
+
+  .intro{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 20px;font-size:14px;line-height:1.55;color:var(--ink-soft);}
+  .intro strong{color:var(--ink);}
+  .offline-note{background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--ink);}
+  .aviso{background:var(--surface);border:1px solid var(--line-strong);border-left:4px solid var(--accent);border-radius:8px;padding:14px 18px;font-size:13.5px;line-height:1.55;color:var(--ink);}
+  .aviso b{font-weight:600;}
+  .aviso .aviso-titulo{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-soft);display:block;margin-bottom:6px;}
+  .aviso-inline{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin:0;}
+
+  .card{background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:16px;}
+  .card h2{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-size:18px;margin:0;text-transform:uppercase;letter-spacing:0.02em;color:var(--ink);}
+  .card h3{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-size:16px;margin:0;color:var(--ink);}
+
+  .field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 16px;}
+  label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.03em;color:var(--ink-soft);}
+  label.wide{grid-column:1/-1;}
+  input[type=text],input[type=number],input[type=date],input[type=email],select{
+    font-family:'IBM Plex Sans',sans-serif;font-size:14.5px;padding:9px 10px;border-radius:6px;
+    border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);text-transform:none;letter-spacing:normal;
+  }
+  input:focus,select:focus{outline:2px solid var(--focus);outline-offset:1px;}
+  .check-row{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Sans',sans-serif;text-transform:none;letter-spacing:normal;font-size:14px;color:var(--ink);}
+  .check-row input{width:16px;height:16px;}
+
+  .toggle-group{display:flex;gap:8px;}
+  .toggle-btn{padding:8px 16px;border-radius:6px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink-soft);font-size:13.5px;cursor:pointer;}
+  .toggle-btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-2);}
+  @media (prefers-color-scheme: dark){ .toggle-btn[aria-pressed="true"]{color:var(--accent);} }
+
+  .sub-box{display:none;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 16px;background:var(--surface-2);border:1px dashed var(--line-strong);border-radius:8px;padding:14px;}
+  .sub-box.show{display:grid;}
+
+  .divider{border:none;border-top:1px solid var(--line);margin:0;}
+
+  .quadro-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .quadro-title .n{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);}
+  .quadro-scroll{overflow-x:auto;border:1px solid var(--line-strong);border-radius:8px;}
+  table.quadro{border-collapse:collapse;width:100%;min-width:640px;}
+  table.quadro th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.02em;color:var(--ink-soft);background:var(--surface-2);text-align:left;padding:8px 7px;border-bottom:1px solid var(--line-strong);white-space:nowrap;}
+  table.quadro td{padding:5px 7px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  table.quadro tr:last-child td{border-bottom:none;}
+  table.quadro input,table.quadro select{width:100%;min-width:82px;padding:6px 7px;font-size:13px;}
+  table.quadro td.cargo-col{min-width:150px;}
+  .row-remove{background:none;border:1px solid var(--line-strong);color:var(--danger);border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:14px;line-height:1;}
+  .add-row-btn{align-self:flex-start;background:var(--surface-2);border:1px solid var(--line-strong);color:var(--ink);padding:8px 14px;border-radius:6px;font-size:13px;cursor:pointer;}
+  .add-row-btn:hover{border-color:var(--accent);}
+
+  .primary-btn{align-self:flex-start;background:var(--accent);color:#fff9f0;border:none;padding:12px 22px;border-radius:7px;font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.02em;text-transform:uppercase;cursor:pointer;}
+  @media (prefers-color-scheme: dark){ .primary-btn{color:#052033;} }
+  .secondary-btn{align-self:flex-start;background:var(--surface-2);color:var(--ink);border:1px solid var(--line-strong);padding:11px 20px;border-radius:7px;font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.02em;text-transform:uppercase;cursor:pointer;}
+  .msg{font-size:13px;font-family:'IBM Plex Mono',monospace;}
+  .msg.ok{color:var(--good);} .msg.err{color:var(--danger);}
+
+  .list-empty{font-size:13px;color:var(--ink-soft);font-style:italic;}
+  .list-item{border:1px solid var(--line);border-radius:7px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .list-item .l1{font-size:14px;font-weight:600;}
+  .list-item .l2{font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .list-item button{background:none;border:1px solid var(--danger);color:var(--danger);border-radius:6px;padding:6px 10px;cursor:pointer;font-size:12px;white-space:nowrap;}
+
+  .export-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  footer.note{font-size:12px;color:var(--ink-soft);text-align:center;padding-block:4px 10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gg-bar"></div>
+
+  <div class="titleblock">
+    <h1>Orçamento 2027 · Goiânia</h1>
+    <div class="meta">
+      <span>Empresa: <b>Brasil Terrenos</b></span>
+      <span>Documento: <b>Levantamento do Gestor</b></span>
+      <span>Ciclo: <b>2027</b></span>
+    </div>
+  </div>
+
+  <div class="intro">
+    Preencha um registro para cada <strong>Departamento</strong> e adicione quantos precisar.
+    Ao terminar, clique em <strong>"Devolver para a Gente e Gestão"</strong>, no final da página.
+  </div>
+  <div class="offline-note">Seus dados são <b>salvos automaticamente</b> na base da Gente e Gestão enquanto você preenche: pode fechar e voltar depois. Lembre de clicar em <b>"Adicionar … à lista"</b> em cada registro. Quando terminar, clique em <b>"Devolver para a Gente e Gestão"</b>.</div>
+
+  <div class="aviso">
+    <span class="aviso-titulo">Importante</span>
+    O que você informar aqui é uma <b>previsão orçamentária</b> e ainda precisa ser
+    <b>aprovada pela diretoria da sua área</b>. Além disso, preencher este formulário
+    <b>não substitui</b> a abertura da vaga na <b>Gupy</b> nem o preenchimento do
+    <b>formulário de aprovação de alteração de salário</b> — cada contratação ou reajuste continua
+    seguindo o fluxo normal no momento em que acontecer.
+  </div>
+
+  <div class="card">
+    <h2>Identificação do Gestor</h2>
+    <div class="field-grid">
+      <label for="top-gestor-nome">Nome do gestor responsável
+        <input type="text" id="top-gestor-nome">
+      </label>
+      <label for="top-gestor-email">E-mail do gestor
+        <input type="email" id="top-gestor-email">
+      </label>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="top-ferias-confirm">
+      Confirmo que já programei as férias da minha equipe no Painel de Gestão para 2027.
+    </div>
+  </div>
+
+  <div class="sheet card" id="tab-dept">
+    <h2>Departamento / Obra</h2>
+
+    <div>
+      <h3 style="margin-bottom:10px;">Descrição</h3>
+      <div class="field-grid">
+        <label for="dep-num-empresa">Nº da Empresa
+          <input type="text" id="dep-num-empresa" placeholder="Ex.: 03">
+        </label>
+        <label for="dep-empresa">Nome da Empresa
+          <input type="text" id="dep-empresa" placeholder="Ex.: Brasil Terrenos Holding SA">
+        </label>
+        <label for="dep-cc">Obra
+          <input type="text" id="dep-cc" placeholder="Ex.: 91200">
+        </label>
+        <label for="dep-depto">Departamento
+          <input type="text" id="dep-depto" placeholder="Ex.: Financeiro">
+        </label>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Previsão de contratações para 2027</h3>
+        <span class="n" id="dep-count">1 vaga</span>
+      </div>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Cargo</th>
+              <th>Motivo</th>
+              <th>Qtd.</th>
+              <th>Salário (R$)</th>
+              <th>Competência<br>(Início Contratação)</th>
+            </tr>
+          </thead>
+          <tbody id="dep-cargos-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="dep-add-row" style="margin-top:10px;">+ Adicionar vaga</button>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Previsão de Reajuste (por pessoa)</h3>
+        <span class="n" id="dep-reaj-count">0 registros</span>
+      </div>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Nome</th>
+              <th>Cargo</th>
+              <th>% Esperado</th>
+              <th>Mês previsto</th>
+            </tr>
+          </thead>
+          <tbody id="dep-reaj-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="dep-reaj-add" style="margin-top:10px;">+ Adicionar reajuste</button>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Treinamentos previstos para a equipe</h3>
+        <span class="n" id="dep-trein-count">0 registros</span>
+      </div>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Tipo de treinamento</th>
+              <th>Mês</th>
+              <th>Valor (R$)</th>
+              <th>Qtd. de pessoas</th>
+            </tr>
+          </thead>
+          <tbody id="dep-trein-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="dep-trein-add" style="margin-top:10px;">+ Adicionar treinamento</button>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Outros gastos com pessoas que você precisa orçar</h3>
+        <span class="n" id="dep-outras-count">0 registros</span>
+      </div>
+      <p style="font-size:13px;color:var(--ink-soft);margin:8px 0 0;line-height:1.5;">
+        Use este espaço para qualquer custo com gente que não caiba nos quadros acima — por exemplo:
+        estágio, jovem aprendiz, contratação temporária, consultoria, freelancer, premiação da equipe
+        ou evento de integração.
+      </p>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>O que precisa ser orçado</th>
+              <th>Valor estimado (R$)</th>
+              <th>Observação</th>
+            </tr>
+          </thead>
+          <tbody id="dep-outras-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="dep-outras-add" style="margin-top:10px;">+ Adicionar item</button>
+    </div>
+
+    <p class="aviso-inline">
+      Lembrete: este preenchimento é uma previsão para o orçamento, sujeita à aprovação da diretoria
+      da sua área, e não substitui a abertura da vaga na Gupy nem o formulário de aprovação de
+      alteração de salário.
+    </p>
+    <button type="button" class="primary-btn" id="dep-add-btn">Adicionar Departamento à lista</button>
+    <div class="msg" id="dep-msg"></div>
+  </div>
+
+  <div class="card">
+    <h2>Registros adicionados nesta sessão</h2>
+    <div id="lista-registros"><div class="list-empty">Nenhum registro adicionado ainda.</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Conferência e importação</h2>
+    <p class="aviso-inline">Baixe o .csv para conferir o que já lançou. Se você já tinha preenchido o formulário offline e exportado o arquivo .json, use “Importar rascunho” para trazer os dados para cá.</p>
+    <div class="export-row">
+      <button type="button" class="primary-btn" id="btn-export-json" hidden>Exportar arquivo (.json)</button>
+      <button type="button" class="secondary-btn" id="btn-export-csv">Baixar conferência (.csv)</button>
+      <label class="secondary-btn" style="cursor:pointer;">
+        Importar rascunho (.json)
+        <input type="file" id="input-import" accept="application/json" style="display:none;">
+      </label>
+    </div>
+    <div class="msg" id="export-msg"></div>
+  </div>
+
+  <div id="gg-devolver"></div>
+  <div id="gg-detalhe"></div>
+
+  <footer class="note">Gente e Gestão · Brasil Terrenos — os dados ficam salvos na base da Gente e Gestão e são entregues quando você clica em “Devolver”.</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="gg-form.js" data-form="F1"></script>
+<script>
+window.GG_FORM_MAIN = function(){
+  "use strict";
+  var STORAGE_KEY = 'orcamento2027_goiania_rascunho_v1';
+
+  var state = { gestorNome:'', gestorEmail:'', feriasConfirmadas:false, registros: [] };
+
+  function save(){ try{ window.GG.salvar(state); }catch(e){} }
+  function load(){
+    try{
+      var raw = window.GG.rascunho();
+      if (!raw) return;
+      var p = JSON.parse(raw);
+      state.gestorNome = p.gestorNome || '';
+      state.gestorEmail = p.gestorEmail || '';
+      state.feriasConfirmadas = !!p.feriasConfirmadas;
+      state.registros = Array.isArray(p.registros) ? p.registros : [];
+    }catch(e){}
+  }
+  load();
+  document.getElementById('top-gestor-nome').value = state.gestorNome;
+  document.getElementById('top-gestor-email').value = state.gestorEmail;
+  document.getElementById('top-ferias-confirm').checked = state.feriasConfirmadas;
+  ['top-gestor-nome','top-gestor-email'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){
+      state.gestorNome = document.getElementById('top-gestor-nome').value.trim();
+      state.gestorEmail = document.getElementById('top-gestor-email').value.trim();
+      save();
+    });
+  });
+  document.getElementById('top-ferias-confirm').addEventListener('change', function(){ state.feriasConfirmadas = this.checked; save(); });
+
+  // ---------- cargos ----------
+  var counters = { cargo:0, reaj:0, trein:0, outras:0 };
+
+  function makeCargoRow(){
+    var i = ++counters.cargo;
+    var tr = document.createElement('tr');
+    tr.dataset.rowId = 'cargo-' + i;
+    tr.innerHTML =
+      '<td><button type="button" class="row-remove">&times;</button></td>' +
+      '<td class="cargo-col"><input type="text" id="cargo-cargo-' + i + '" placeholder="Ex.: Analista Financeiro"></td>' +
+      '<td><select id="cargo-motivo-' + i + '">' +
+        '<option value="aumento">Aumento</option>' +
+        '<option value="reposicao">Reposição</option>' +
+      '</select></td>' +
+      '<td><input type="number" id="cargo-qtd-' + i + '" min="1" step="1" value="1"></td>' +
+      '<td><input type="number" id="cargo-sal-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="date" id="cargo-comp-' + i + '"></td>';
+    tr.querySelector('.row-remove').addEventListener('click', function(){
+      var body = tr.parentElement;
+      if (body.children.length > 1){ tr.remove(); updateCount('dep-count', body, 'vaga', 'vagas'); }
+    });
+    return tr;
+  }
+  function updateCount(spanId, body, singular, plural){
+    var n = body.children.length;
+    document.getElementById(spanId).textContent = n + ' ' + (n === 1 ? singular : plural);
+  }
+  function addCargoRow(){
+    var body = document.getElementById('dep-cargos-body');
+    body.appendChild(makeCargoRow());
+    updateCount('dep-count', body, 'vaga', 'vagas');
+  }
+  document.getElementById('dep-add-row').addEventListener('click', addCargoRow);
+  addCargoRow();
+
+  function collectCargos(){
+    var body = document.getElementById('dep-cargos-body');
+    var out = [];
+    Array.prototype.forEach.call(body.children, function(tr){
+      var i = tr.dataset.rowId.split('-').pop();
+      var cargo = document.getElementById('cargo-cargo-' + i).value.trim();
+      if (!cargo) return;
+      out.push({
+        cargo: cargo,
+        motivo: document.getElementById('cargo-motivo-' + i).value,
+        quantidade: Number(document.getElementById('cargo-qtd-' + i).value || 1),
+        salario: Number(document.getElementById('cargo-sal-' + i).value || 0),
+        competenciaInicioContratacao: document.getElementById('cargo-comp-' + i).value || null
+      });
+    });
+    return out;
+  }
+  function clearCargos(){ document.getElementById('dep-cargos-body').innerHTML = ''; addCargoRow(); }
+
+  // ---------- reajustes ----------
+  function makeReajRow(){
+    var i = ++counters.reaj;
+    var tr = document.createElement('tr');
+    tr.dataset.rowId = 'reaj-' + i;
+    tr.innerHTML =
+      '<td><button type="button" class="row-remove">&times;</button></td>' +
+      '<td><input type="text" id="reaj-nome-' + i + '" placeholder="Nome do colaborador"></td>' +
+      '<td><input type="text" id="reaj-cargo-' + i + '" placeholder="Cargo"></td>' +
+      '<td><input type="number" id="reaj-pct-' + i + '" min="0" step="0.1" placeholder="Ex.: 5"></td>' +
+      '<td><input type="text" id="reaj-mes-' + i + '" placeholder="Ex.: Maio/2027"></td>';
+    tr.querySelector('.row-remove').addEventListener('click', function(){
+      tr.remove(); updateCount('dep-reaj-count', document.getElementById('dep-reaj-body'), 'registro', 'registros');
+    });
+    return tr;
+  }
+  document.getElementById('dep-reaj-add').addEventListener('click', function(){
+    var body = document.getElementById('dep-reaj-body');
+    body.appendChild(makeReajRow());
+    updateCount('dep-reaj-count', body, 'registro', 'registros');
+  });
+  function collectReajustes(){
+    var body = document.getElementById('dep-reaj-body');
+    var out = [];
+    Array.prototype.forEach.call(body.children, function(tr){
+      var i = tr.dataset.rowId.split('-').pop();
+      var nome = document.getElementById('reaj-nome-' + i).value.trim();
+      var cargo = document.getElementById('reaj-cargo-' + i).value.trim();
+      if (!nome && !cargo) return;
+      out.push({
+        nome: nome, cargo: cargo,
+        percentualEsperado: document.getElementById('reaj-pct-' + i).value === '' ? null : Number(document.getElementById('reaj-pct-' + i).value),
+        mesPrevisto: document.getElementById('reaj-mes-' + i).value.trim()
+      });
+    });
+    return out;
+  }
+  function clearReajustes(){ document.getElementById('dep-reaj-body').innerHTML = ''; document.getElementById('dep-reaj-count').textContent = '0 registros'; }
+
+  // ---------- treinamentos ----------
+  function makeTreinRow(){
+    var i = ++counters.trein;
+    var tr = document.createElement('tr');
+    tr.dataset.rowId = 'trein-' + i;
+    tr.innerHTML =
+      '<td><button type="button" class="row-remove">&times;</button></td>' +
+      '<td><input type="text" id="trein-tipo-' + i + '" placeholder="Ex.: Excel Avançado"></td>' +
+      '<td><input type="text" id="trein-mes-' + i + '" placeholder="Ex.: Março/2027"></td>' +
+      '<td><input type="number" id="trein-valor-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="trein-qtd-' + i + '" min="0" step="1" placeholder="0"></td>';
+    tr.querySelector('.row-remove').addEventListener('click', function(){
+      tr.remove(); updateCount('dep-trein-count', document.getElementById('dep-trein-body'), 'registro', 'registros');
+    });
+    return tr;
+  }
+  document.getElementById('dep-trein-add').addEventListener('click', function(){
+    var body = document.getElementById('dep-trein-body');
+    body.appendChild(makeTreinRow());
+    updateCount('dep-trein-count', body, 'registro', 'registros');
+  });
+  function collectTreinamentos(){
+    var body = document.getElementById('dep-trein-body');
+    var out = [];
+    Array.prototype.forEach.call(body.children, function(tr){
+      var i = tr.dataset.rowId.split('-').pop();
+      var tipo = document.getElementById('trein-tipo-' + i).value.trim();
+      if (!tipo) return;
+      out.push({
+        tipoTreinamento: tipo,
+        mes: document.getElementById('trein-mes-' + i).value.trim(),
+        valor: Number(document.getElementById('trein-valor-' + i).value || 0),
+        quantidadePessoas: Number(document.getElementById('trein-qtd-' + i).value || 0)
+      });
+    });
+    return out;
+  }
+  function clearTreinamentos(){ document.getElementById('dep-trein-body').innerHTML = ''; document.getElementById('dep-trein-count').textContent = '0 registros'; }
+
+  // ---------- outras necessidades ----------
+  function makeOutrasRow(){
+    var i = ++counters.outras;
+    var tr = document.createElement('tr');
+    tr.dataset.rowId = 'outras-' + i;
+    tr.innerHTML =
+      '<td><button type="button" class="row-remove">&times;</button></td>' +
+      '<td><input type="text" id="outras-desc-' + i + '" placeholder="Ex.: Consultoria pontual"></td>' +
+      '<td><input type="number" id="outras-valor-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="text" id="outras-obs-' + i + '" placeholder="Observação"></td>';
+    tr.querySelector('.row-remove').addEventListener('click', function(){
+      tr.remove(); updateCount('dep-outras-count', document.getElementById('dep-outras-body'), 'registro', 'registros');
+    });
+    return tr;
+  }
+  document.getElementById('dep-outras-add').addEventListener('click', function(){
+    var body = document.getElementById('dep-outras-body');
+    body.appendChild(makeOutrasRow());
+    updateCount('dep-outras-count', body, 'registro', 'registros');
+  });
+  function collectOutras(){
+    var body = document.getElementById('dep-outras-body');
+    var out = [];
+    Array.prototype.forEach.call(body.children, function(tr){
+      var i = tr.dataset.rowId.split('-').pop();
+      var desc = document.getElementById('outras-desc-' + i).value.trim();
+      if (!desc) return;
+      out.push({
+        descricao: desc,
+        valorEstimado: Number(document.getElementById('outras-valor-' + i).value || 0),
+        observacao: document.getElementById('outras-obs-' + i).value.trim()
+      });
+    });
+    return out;
+  }
+  function clearOutras(){ document.getElementById('dep-outras-body').innerHTML = ''; document.getElementById('dep-outras-count').textContent = '0 registros'; }
+
+  // ---------- add to list ----------
+  function setMsg(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+  function renderLista(){
+    var el = document.getElementById('lista-registros');
+    if (state.registros.length === 0){ el.innerHTML = '<div class="list-empty">Nenhum registro adicionado ainda.</div>'; return; }
+    el.innerHTML = '';
+    state.registros.forEach(function(rec, idx){
+      var item = document.createElement('div');
+      item.className = 'list-item';
+      var empresaLabel = (rec.numeroEmpresa ? rec.numeroEmpresa + ' - ' : '') + (rec.empresa || '—');
+      item.innerHTML =
+        '<div><div class="l1">' + empresaLabel + ' · Obra ' + (rec.obra || '—') + ' · ' + (rec.departamento || '—') + '</div>' +
+        '<div class="l2">' + rec.cargos.length + (rec.cargos.length===1?' vaga':' vagas') + ' · ' + rec.treinamentos.length + ' treinamento(s) · ' + rec.outrasNecessidades.length + ' outra(s)</div></div>' +
+        '<button data-idx="' + idx + '">Remover</button>';
+      el.appendChild(item);
+    });
+    el.querySelectorAll('button[data-idx]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        state.registros.splice(Number(btn.dataset.idx), 1);
+        save(); renderLista();
+      });
+    });
+  }
+  renderLista();
+
+  document.getElementById('dep-add-btn').addEventListener('click', function(){
+    var msg = document.getElementById('dep-msg');
+    var cargos = collectCargos();
+    if (!document.getElementById('dep-cc').value.trim() && !document.getElementById('dep-depto').value.trim()){
+      setMsg(msg, 'Informe ao menos a Obra ou o Departamento.', false); return;
+    }
+    if (cargos.length === 0 && collectTreinamentos().length === 0 && collectOutras().length === 0){
+      setMsg(msg, 'Adicione ao menos uma contratação prevista, um treinamento ou um outro gasto.', false); return;
+    }
+    var rec = {
+      numeroEmpresa: document.getElementById('dep-num-empresa').value.trim(),
+      empresa: document.getElementById('dep-empresa').value.trim(),
+      obra: document.getElementById('dep-cc').value.trim(),
+      departamento: document.getElementById('dep-depto').value.trim(),
+      cargos: cargos,
+      reajustes: collectReajustes(),
+      treinamentos: collectTreinamentos(),
+      outrasNecessidades: collectOutras()
+    };
+    state.registros.push(rec); save(); renderLista();
+    setMsg(msg, 'Departamento adicionado à lista. Você pode preencher outro ou já devolver.', true);
+
+    document.getElementById('dep-num-empresa').value = '';
+    document.getElementById('dep-empresa').value = '';
+    document.getElementById('dep-cc').value = '';
+    document.getElementById('dep-depto').value = '';
+    clearCargos(); clearReajustes(); clearTreinamentos(); clearOutras();
+  });
+
+  // ---------- export / import ----------
+  function download(filename, content, mime){
+    var blob = new Blob([content], {type: mime});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+  }
+
+  document.getElementById('btn-export-json').addEventListener('click', function(){
+    var msg = document.getElementById('export-msg');
+    if (state.registros.length === 0){ setMsg(msg, 'Adicione ao menos um registro antes de devolver.', false); return; }
+    var payload = {
+      exportadoEm: new Date().toISOString(),
+      cidade: 'Goiânia',
+      gestorNome: state.gestorNome, gestorEmail: state.gestorEmail,
+      feriasConfirmadas: state.feriasConfirmadas,
+      registros: state.registros
+    };
+    var stamp = new Date().toISOString().slice(0,10);
+    var nomeGestor = (state.gestorNome || 'gestor').replace(/[^a-zA-Z0-9]+/g, '_');
+    download('orcamento2027_goiania_' + nomeGestor + '_' + stamp + '.json', JSON.stringify(payload, null, 2), 'application/json');
+    setMsg(msg, 'Arquivo exportado. Envie-o por e-mail para o Gente e Gestão.', true);
+  });
+
+  function csvEsc(v){ v = (v === null || v === undefined) ? '' : String(v); v = v.replace(/"/g, '""'); return '"' + v + '"'; }
+  function numBR(n){ return (Number(n)||0).toFixed(2).replace('.', ','); }
+
+  document.getElementById('btn-export-csv').addEventListener('click', function(){
+    var msg = document.getElementById('export-msg');
+    if (state.registros.length === 0){ setMsg(msg, 'Adicione ao menos um registro antes de devolver.', false); return; }
+    var header = ['Bloco','NumeroEmpresa','Empresa','Obra','Departamento','Descricao','Complemento','Quantidade','Valor'];
+    var lines = [header.map(csvEsc).join(';')];
+    state.registros.forEach(function(rec){
+      rec.cargos.forEach(function(c){
+        lines.push(['Contratação prevista', rec.numeroEmpresa, rec.empresa, rec.obra, rec.departamento, c.cargo,
+          c.motivo + (c.competenciaInicioContratacao ? ' | Início: ' + c.competenciaInicioContratacao : ''),
+          c.quantidade, numBR(c.salario)].map(csvEsc).join(';'));
+      });
+      rec.reajustes.forEach(function(r){
+        lines.push(['Reajuste', rec.numeroEmpresa, rec.empresa, rec.obra, rec.departamento, r.nome + ' (' + r.cargo + ')',
+          'Mês: ' + r.mesPrevisto, '', (r.percentualEsperado ?? '') + '%'].map(csvEsc).join(';'));
+      });
+      rec.treinamentos.forEach(function(t){
+        lines.push(['Treinamento', rec.numeroEmpresa, rec.empresa, rec.obra, rec.departamento, t.tipoTreinamento,
+          'Mês: ' + t.mes, t.quantidadePessoas, numBR(t.valor)].map(csvEsc).join(';'));
+      });
+      rec.outrasNecessidades.forEach(function(o){
+        lines.push(['Outro gasto com pessoas', rec.numeroEmpresa, rec.empresa, rec.obra, rec.departamento, o.descricao,
+          o.observacao, '', numBR(o.valorEstimado)].map(csvEsc).join(';'));
+      });
+    });
+    var csv = '﻿' + lines.join('\r\n');
+    var stamp = new Date().toISOString().slice(0,10);
+    download('orcamento2027_goiania_conferencia_' + stamp + '.csv', csv, 'text/csv;charset=utf-8');
+    setMsg(msg, 'CSV de conferência baixado (use apenas para revisão — o arquivo oficial é o .json).', true);
+  });
+
+  document.getElementById('input-import').addEventListener('change', function(ev){
+    var msg = document.getElementById('export-msg');
+    var file = ev.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var parsed = JSON.parse(reader.result);
+        state.gestorNome = parsed.gestorNome || state.gestorNome;
+        state.gestorEmail = parsed.gestorEmail || state.gestorEmail;
+        state.feriasConfirmadas = !!parsed.feriasConfirmadas || state.feriasConfirmadas;
+        state.registros = state.registros.concat(Array.isArray(parsed.registros) ? parsed.registros : []);
+        document.getElementById('top-gestor-nome').value = state.gestorNome;
+        document.getElementById('top-gestor-email').value = state.gestorEmail;
+        document.getElementById('top-ferias-confirm').checked = state.feriasConfirmadas;
+        save(); renderLista();
+        setMsg(msg, 'Rascunho importado e somado à lista atual.', true);
+      }catch(e){
+        setMsg(msg, 'Não foi possível ler este arquivo — confirme que é um .json exportado por esta página.', false);
+      }
+      ev.target.value = '';
+    };
+    reader.readAsText(file, 'utf-8');
+  });
+
+};
+</script>
+</body>
+</html>

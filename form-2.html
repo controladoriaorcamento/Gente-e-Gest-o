@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Formulário 2 · Orçamento 2027 Gestor</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+  :root{
+    --bg:#eef1f6;
+    --surface:#ffffff;
+    --surface-2:#e4e9f0;
+    --ink:#1c2a3a;
+    --ink-soft:#55677d;
+    --line:#c7d1dd;
+    --line-strong:#9fb0c2;
+    --accent:#b3540b;
+    --accent-2:#8a3f08;
+    --accent-soft:#f6e3cc;
+    --good:#2f7d4f;
+    --good-soft:#e1f0e6;
+    --danger:#b23a3a;
+    --danger-soft:#f8e3e3;
+    --focus:#0d6efd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b2d52; --surface:#0f3a68; --surface-2:#134476;
+      --ink:#e4f2ff; --ink-soft:#9cc4e8; --line:#2f5f92; --line-strong:#4b7fb4;
+      --accent:#7be3f5; --accent-2:#40c4dd; --accent-soft:#123f5e;
+      --good:#7be08a; --good-soft:#154a34; --danger:#ff9c9c; --danger-soft:#4a2020; --focus:#7be3f5;
+    }
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    padding-inline:16px;padding-block:24px;
+  }
+  .wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:18px;}
+
+  .titleblock{
+    background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;
+    padding:18px 22px;display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;justify-content:space-between;
+  }
+  .titleblock h1{
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:800;
+    font-size:clamp(24px,5vw,34px);letter-spacing:0.01em;margin:0;color:var(--accent-2);
+  }
+  @media (prefers-color-scheme: dark){ .titleblock h1{color:var(--accent);} }
+  .titleblock .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);display:flex;gap:16px;flex-wrap:wrap;}
+  .titleblock .meta b{color:var(--ink);font-weight:600;}
+
+  .intro{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 20px;font-size:14px;line-height:1.55;color:var(--ink-soft);}
+  .intro strong{color:var(--ink);}
+  .offline-note{
+    background:var(--accent-soft);border:1px solid var(--accent);border-radius:8px;padding:10px 14px;
+    font-size:13px;color:var(--ink);
+  }
+  .aviso{background:var(--surface);border:1px solid var(--line-strong);border-left:4px solid var(--accent);border-radius:8px;padding:14px 18px;font-size:13.5px;line-height:1.55;color:var(--ink);}
+  .aviso b{font-weight:600;}
+  .aviso .aviso-titulo{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-soft);display:block;margin-bottom:6px;}
+  .aviso-inline{font-size:12.5px;color:var(--ink-soft);line-height:1.5;margin:0;}
+  .campo-erro{border-color:var(--danger)!important;background:var(--danger-soft)!important;}
+  .regra-preenchimento{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:10px 14px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;}
+  .regra-preenchimento b{color:var(--ink);font-weight:600;}
+
+  .card{background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:18px 20px;display:flex;flex-direction:column;gap:16px;}
+  .card h2{
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-size:18px;margin:0;
+    text-transform:uppercase;letter-spacing:0.02em;color:var(--ink);
+  }
+
+  .field-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 16px;}
+  label{display:flex;flex-direction:column;gap:5px;font-size:12px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.03em;color:var(--ink-soft);}
+  label.wide{grid-column:1/-1;}
+  input[type=text],input[type=number],input[type=date],input[type=email],select{
+    font-family:'IBM Plex Sans',sans-serif;font-size:14.5px;padding:9px 10px;border-radius:6px;
+    border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);text-transform:none;letter-spacing:normal;
+  }
+  input:focus,select:focus{outline:2px solid var(--focus);outline-offset:1px;}
+  .check-row{display:flex;align-items:center;gap:8px;font-family:'IBM Plex Sans',sans-serif;text-transform:none;letter-spacing:normal;font-size:14px;color:var(--ink);}
+  .check-row input{width:16px;height:16px;}
+
+  .toggle-group{display:flex;gap:8px;}
+  .toggle-btn{padding:8px 16px;border-radius:6px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink-soft);font-size:13.5px;cursor:pointer;}
+  .toggle-btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-2);}
+  @media (prefers-color-scheme: dark){ .toggle-btn[aria-pressed="true"]{color:var(--accent);} }
+
+  .sub-box{display:none;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px 16px;background:var(--surface-2);border:1px dashed var(--line-strong);border-radius:8px;padding:14px;}
+  .sub-box.show{display:grid;}
+
+  .tabs{display:flex;gap:8px;}
+  .tab-btn{
+    flex:1;font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;font-size:16px;
+    letter-spacing:0.02em;text-transform:uppercase;padding:13px 10px;border-radius:8px 8px 0 0;
+    border:1px solid var(--line-strong);border-bottom:none;background:var(--surface-2);color:var(--ink-soft);cursor:pointer;
+  }
+  .tab-btn[aria-selected="true"]{background:var(--surface);color:var(--accent-2);}
+  @media (prefers-color-scheme: dark){ .tab-btn[aria-selected="true"]{color:var(--accent);} }
+  .sheet{background:var(--surface);border:1px solid var(--line-strong);border-radius:0 8px 8px 8px;padding:20px;display:flex;flex-direction:column;gap:18px;}
+  .sheet[hidden]{display:none!important;}
+
+  .quadro-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .quadro-title h3{font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-size:16px;margin:0;color:var(--ink);}
+  .quadro-title .n{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);}
+  .quadro-scroll{overflow-x:auto;border:1px solid var(--line-strong);border-radius:8px;}
+  table.quadro{border-collapse:collapse;width:100%;min-width:1080px;}
+  table.quadro th{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:0.02em;
+    color:var(--ink-soft);background:var(--surface-2);text-align:left;padding:8px 7px;border-bottom:1px solid var(--line-strong);white-space:nowrap;
+  }
+  table.quadro td{padding:5px 7px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  table.quadro tr:last-child td{border-bottom:none;}
+  table.quadro input,table.quadro select{width:100%;min-width:82px;padding:6px 7px;font-size:13px;}
+  table.quadro td.cargo-col{min-width:150px;}
+  .row-remove{background:none;border:1px solid var(--line-strong);color:var(--danger);border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:14px;line-height:1;}
+  .add-row-btn{align-self:flex-start;background:var(--surface-2);border:1px solid var(--line-strong);color:var(--ink);padding:8px 14px;border-radius:6px;font-size:13px;cursor:pointer;}
+  .add-row-btn:hover{border-color:var(--accent);}
+  .divider{border:none;border-top:1px solid var(--line);margin:0;}
+
+  .primary-btn{
+    align-self:flex-start;background:var(--accent);color:#fff9f0;border:none;padding:12px 22px;border-radius:7px;
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.02em;
+    text-transform:uppercase;cursor:pointer;
+  }
+  @media (prefers-color-scheme: dark){ .primary-btn{color:#052033;} }
+  .secondary-btn{
+    align-self:flex-start;background:var(--surface-2);color:var(--ink);border:1px solid var(--line-strong);padding:11px 20px;border-radius:7px;
+    font-family:'Big Shoulders Display','Arial Narrow',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.02em;text-transform:uppercase;cursor:pointer;
+  }
+  .msg{font-size:13px;font-family:'IBM Plex Mono',monospace;}
+  .msg.ok{color:var(--good);} .msg.err{color:var(--danger);}
+
+  .list-card{display:flex;flex-direction:column;gap:10px;}
+  .list-empty{font-size:13px;color:var(--ink-soft);font-style:italic;}
+  .list-item{border:1px solid var(--line);border-radius:7px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+  .list-item .l1{font-size:14px;font-weight:600;}
+  .list-item .l2{font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;}
+  .list-item button{background:none;border:1px solid var(--danger);color:var(--danger);border-radius:6px;padding:6px 10px;cursor:pointer;font-size:12px;white-space:nowrap;}
+
+  .export-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  footer.note{font-size:12px;color:var(--ink-soft);text-align:center;padding-block:4px 10px;}
+  .tabs{flex-wrap:wrap;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="gg-bar"></div>
+
+  <div class="titleblock">
+    <h1>Orçamento 2027</h1>
+    <div class="meta">
+      <span>Empresa: <b>Brasil Terrenos</b></span>
+      <span>Documento: <b>Levantamento do Gestor</b></span>
+      <span>Ciclo: <b>2027</b></span>
+    </div>
+  </div>
+
+  <div class="intro">
+    Preencha os dados da(s) sua(s) obra(s) e/ou unidade(s) administrativas. Você pode adicionar
+    <strong>quantos registros precisar</strong> antes de devolver. Ao final, clique em <strong>"Devolver para a Gente e Gestão"</strong>, no final da página.
+    <br><br>
+    <strong>Prazo de devolução: 28/10/2026.</strong> Se você já tem previsões para <strong>2028 e 2029</strong>,
+    lance também: basta usar a competência do ano correspondente em cada linha.
+  </div>
+  <div class="offline-note">Seus dados são <b>salvos automaticamente</b> na base da Gente e Gestão enquanto você preenche: pode fechar e voltar depois. Lembre de clicar em <b>"Adicionar … à lista"</b> em cada registro. Quando terminar, clique em <b>"Devolver para a Gente e Gestão"</b>.</div>
+
+  <div class="aviso">
+    <span class="aviso-titulo">Importante</span>
+    O que você informar aqui é uma <b>previsão orçamentária</b> e ainda precisa ser
+    <b>aprovada pela diretoria da sua área</b>. Além disso, preencher este formulário
+    <b>não substitui</b> a abertura da vaga na <b>Gupy</b> nem o preenchimento do
+    <b>formulário de aprovação de alteração de salário</b> — cada contratação ou reajuste continua
+    seguindo o fluxo normal no momento em que acontecer.
+  </div>
+
+  <div class="card">
+    <h2>Identificação</h2>
+    <div class="regra-preenchimento">
+      Padrão de preenchimento: os textos são gravados automaticamente em <b>MAIÚSCULAS</b> e todo mês
+      deve ser informado como <b>MM/AAAA</b> (exemplo: <b>01/2027</b>).
+    </div>
+    <div class="field-grid">
+      <label for="top-num-empresa">Nº da Empresa
+        <input type="text" id="top-num-empresa" placeholder="Ex.: 756">
+      </label>
+      <label for="top-empresa">Nome da Empresa
+        <input type="text" id="top-empresa" placeholder="Ex.: Cidade Jardim Cáceres">
+      </label>
+      <label for="top-gestor-nome">Nome do gestor responsável
+        <input type="text" id="top-gestor-nome">
+      </label>
+      <label for="top-gestor-email">E-mail do gestor
+        <input type="email" id="top-gestor-email">
+      </label>
+    </div>
+    <div class="check-row">
+      <input type="checkbox" id="top-ferias-confirm">
+      Confirmo que já programei as férias da minha equipe no Painel de Gestão para 2027.
+    </div>
+    <p class="aviso-inline" id="ferias-carimbo" hidden></p>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button type="button" class="tab-btn" id="tab-btn-obras" role="tab" aria-selected="true" aria-controls="tab-obras">Obras</button>
+    <button type="button" class="tab-btn" id="tab-btn-admin" role="tab" aria-selected="false" aria-controls="tab-admin">Unidades Administrativas</button>
+    <button type="button" class="tab-btn" id="tab-btn-pj" role="tab" aria-selected="false" aria-controls="tab-pj">Prestadores PJ</button>
+  </div>
+
+  <!-- ===================== ABA OBRAS ===================== -->
+  <div class="sheet" id="tab-obras" role="tabpanel" aria-labelledby="tab-btn-obras">
+    <div class="field-grid">
+      <label for="obr-obra">Obra / Centro de Custo
+        <input type="text" id="obr-obra" placeholder="Ex.: 91200">
+      </label>
+      <label for="obr-cidade">Cidade
+        <input type="text" id="obr-cidade" placeholder="Ex.: Cáceres">
+      </label>
+      <label for="obr-regional">Regional
+        <input type="text" id="obr-regional" placeholder="Ex.: Centro-Oeste">
+      </label>
+      <label for="obr-inicio">Início da Obra (MM/AAAA)
+        <input type="text" class="mes-ano" inputmode="numeric" maxlength="7" id="obr-inicio" placeholder="MM/AAAA">
+      </label>
+      <label for="obr-fim">Fim da Obra (MM/AAAA)
+        <input type="text" class="mes-ano" inputmode="numeric" maxlength="7" id="obr-fim" placeholder="MM/AAAA">
+      </label>
+      <label class="check-row" style="margin-top:20px;">
+        <input type="checkbox" id="obr-sem-fim"> Ainda sem previsão de término
+      </label>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field-grid">
+      <label for="obr-marmita">Valor diário da Marmita nesta cidade (R$)
+        <input type="number" id="obr-marmita" min="0" step="0.01" placeholder="Ex.: 18,50">
+      </label>
+      <div style="grid-column:span 1;display:flex;flex-direction:column;gap:6px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-transform:uppercase;">Terá funcionários alojados?</span>
+        <div class="toggle-group" id="obr-alojados-group">
+          <button type="button" class="toggle-btn" data-val="nao" aria-pressed="true">Não</button>
+          <button type="button" class="toggle-btn" data-val="sim" aria-pressed="false">Sim</button>
+        </div>
+      </div>
+    </div>
+    <div class="sub-box" id="obr-alojados-box">
+      <label for="obr-alojados-qtd">Quantos funcionários alojados
+        <input type="number" id="obr-alojados-qtd" min="0" step="1">
+      </label>
+      <label class="wide" for="obr-alojados-cargos">Quais cargos (separe por vírgula)
+        <input type="text" id="obr-alojados-cargos" placeholder="Ex.: Pedreiro, Servente, Encarregado">
+      </label>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="check-row" style="margin-bottom:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-transform:uppercase;">Esta Empresa/Obra já está cadastrada no nosso sistema de orçamento?</span>
+      </div>
+      <div class="toggle-group" id="obr-cadastrada-group">
+        <button type="button" class="toggle-btn" data-val="sim" aria-pressed="true">Sim, já existe</button>
+        <button type="button" class="toggle-btn" data-val="nao" aria-pressed="false">Não, é nova</button>
+      </div>
+      <div class="sub-box" id="obr-nova-box">
+        <label for="obr-cnpj">CNPJ da Empresa
+          <input type="text" id="obr-cnpj" placeholder="00.000.000/0000-00">
+        </label>
+        <label for="obr-convenio">Sindicato / Convênio aplicável
+          <input type="text" id="obr-convenio" placeholder="Ex.: STICCERO">
+        </label>
+        <label class="check-row" style="margin-top:20px;">
+          <input type="checkbox" id="obr-nao-sei-convenio"> Não sei informar agora
+        </label>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Quadro de Quantitativos — Cargos desta Obra</h3>
+        <span class="n" id="obr-count">1 cargo</span>
+      </div>
+      <p class="aviso-inline" style="margin-top:8px;">
+        Prestador PJ não entra aqui: lance na aba <b>Prestadores PJ</b>, que usa o insumo I23121.
+      </p>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Cargo</th>
+              <th>Vínculo</th>
+              <th>Motivo</th>
+              <th>Qtd.</th>
+              <th>Salário / Valor<br>mensal (R$)</th>
+              <th>Competência Início<br>Contratação (MM/AAAA)</th>
+              <th>Vale Alimentação (R$/mês)</th>
+              <th>Alimentação no Local (R$/mês)<br>(Café da Manhã / Marmitas)</th>
+              <th>Transporte (R$/mês)</th>
+              <th>Assistência Médica (R$/mês)</th>
+              <th>Hora Extra (R$)</th>
+              <th>Gratificação (R$)</th>
+              <th>Outros Benef./Variável (R$)</th>
+              <th>Pericul./Insal. (%)</th>
+            </tr>
+          </thead>
+          <tbody id="obr-cargos-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="obr-add-row" style="margin-top:10px;">+ Adicionar cargo</button>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Reajuste de mérito / promoção (por pessoa)</h3>
+        <span class="n" id="obr-reaj-count">0 registros</span>
+      </div>
+      <p class="aviso-inline" style="margin-top:8px;">
+        Informe aqui apenas aumentos individuais por mérito ou promoção. O dissídio da categoria é
+        aplicado pelo Gente e Gestão com o índice oficial do Planejamento — não precisa ser lançado por você.
+      </p>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Nome</th>
+              <th>Cargo</th>
+              <th>% Esperado</th>
+              <th>Mês previsto</th>
+            </tr>
+          </thead>
+          <tbody id="obr-reaj-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="obr-reaj-add" style="margin-top:10px;">+ Adicionar reajuste</button>
+    </div>
+
+    <hr class="divider">
+
+    <div id="obr-quadro-desligamentos"></div>
+
+    <hr class="divider">
+
+    <div id="obr-quadro-transferencias"></div>
+
+    <hr class="divider">
+
+    <div id="obr-quadro-treinamentos"></div>
+
+    <p class="aviso-inline">
+      Lembrete: este preenchimento é uma previsão para o orçamento, sujeita à aprovação da diretoria
+      da sua área, e não substitui a abertura da vaga na Gupy nem o formulário de aprovação de
+      alteração de salário.
+    </p>
+    <button type="button" class="primary-btn" id="obr-add-btn">Adicionar Obra à lista</button>
+    <div class="msg" id="obr-msg"></div>
+  </div>
+
+  <!-- ===================== ABA ADMINISTRATIVO ===================== -->
+  <div class="sheet" id="tab-admin" role="tabpanel" aria-labelledby="tab-btn-admin" hidden>
+    <div class="field-grid">
+      <label for="adm-unidade">Unidade / Local
+        <input type="text" id="adm-unidade" placeholder="Ex.: Escritório Cuiabá">
+      </label>
+      <label for="adm-cidade">Cidade
+        <input type="text" id="adm-cidade" placeholder="Ex.: Cuiabá">
+      </label>
+      <label for="adm-regional">Regional
+        <input type="text" id="adm-regional" placeholder="Ex.: Centro-Oeste">
+      </label>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="check-row" style="margin-bottom:10px;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);text-transform:uppercase;">Esta Unidade já está cadastrada no nosso sistema de orçamento?</span>
+      </div>
+      <div class="toggle-group" id="adm-cadastrada-group">
+        <button type="button" class="toggle-btn" data-val="sim" aria-pressed="true">Sim, já existe</button>
+        <button type="button" class="toggle-btn" data-val="nao" aria-pressed="false">Não, é nova</button>
+      </div>
+      <div class="sub-box" id="adm-nova-box">
+        <label for="adm-cnpj">CNPJ da Empresa
+          <input type="text" id="adm-cnpj" placeholder="00.000.000/0000-00">
+        </label>
+        <label for="adm-convenio">Sindicato / Convênio aplicável
+          <input type="text" id="adm-convenio" placeholder="Ex.: SINTRA">
+        </label>
+        <label class="check-row" style="margin-top:20px;">
+          <input type="checkbox" id="adm-nao-sei-convenio"> Não sei informar agora
+        </label>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Quadro de Quantitativos — Cargos desta Unidade</h3>
+        <span class="n" id="adm-count">1 cargo</span>
+      </div>
+      <p class="aviso-inline" style="margin-top:8px;">
+        Prestador PJ não entra aqui: lance na aba <b>Prestadores PJ</b>, que usa o insumo I23121.
+      </p>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Cargo</th>
+              <th>Vínculo</th>
+              <th>Motivo</th>
+              <th>Qtd.</th>
+              <th>Salário / Valor<br>mensal (R$)</th>
+              <th>Competência Início<br>Contratação (MM/AAAA)</th>
+              <th>Vale Alimentação (R$/mês)</th>
+              <th>Alimentação no Local (R$/mês)<br>(Café da Manhã / Marmitas)</th>
+              <th>Transporte (R$/mês)</th>
+              <th>Assistência Médica (R$/mês)</th>
+              <th>Hora Extra (R$)</th>
+              <th>Gratificação (R$)</th>
+              <th>Outros Benef./Variável (R$)</th>
+              <th>Pericul./Insal. (%)</th>
+            </tr>
+          </thead>
+          <tbody id="adm-cargos-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="adm-add-row" style="margin-top:10px;">+ Adicionar cargo</button>
+    </div>
+
+    <hr class="divider">
+
+    <div>
+      <div class="quadro-title">
+        <h3>Reajuste de mérito / promoção (por pessoa)</h3>
+        <span class="n" id="adm-reaj-count">0 registros</span>
+      </div>
+      <p class="aviso-inline" style="margin-top:8px;">
+        Informe aqui apenas aumentos individuais por mérito ou promoção. O dissídio da categoria é
+        aplicado pelo Gente e Gestão com o índice oficial do Planejamento — não precisa ser lançado por você.
+      </p>
+      <div class="quadro-scroll" style="margin-top:10px;">
+        <table class="quadro">
+          <thead>
+            <tr>
+              <th style="width:26px;"></th>
+              <th>Nome</th>
+              <th>Cargo</th>
+              <th>% Esperado</th>
+              <th>Mês previsto</th>
+            </tr>
+          </thead>
+          <tbody id="adm-reaj-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="add-row-btn" id="adm-reaj-add" style="margin-top:10px;">+ Adicionar reajuste</button>
+    </div>
+
+    <hr class="divider">
+
+    <div id="adm-quadro-desligamentos"></div>
+
+    <hr class="divider">
+
+    <div id="adm-quadro-transferencias"></div>
+
+    <hr class="divider">
+
+    <div id="adm-quadro-treinamentos"></div>
+
+    <p class="aviso-inline">
+      Lembrete: este preenchimento é uma previsão para o orçamento, sujeita à aprovação da diretoria
+      da sua área, e não substitui a abertura da vaga na Gupy nem o formulário de aprovação de
+      alteração de salário.
+    </p>
+    <button type="button" class="primary-btn" id="adm-add-btn">Adicionar Unidade à lista</button>
+    <div class="msg" id="adm-msg"></div>
+  </div>
+
+  <!-- ===================== ABA PRESTADORES PJ ===================== -->
+  <div class="sheet" id="tab-pj" role="tabpanel" aria-labelledby="tab-btn-pj" hidden>
+    <div class="regra-preenchimento">
+      Insumo: <b>I23121 - PRESTAÇÃO DE SERVIÇOS PJ</b>. Use esta aba para os prestadores
+      pessoa jurídica que atendem a sua unidade. Eles não entram no quadro de contratações.
+    </div>
+
+    <div class="aviso">
+      <span class="aviso-titulo">Prestador que atende mais de uma empresa</span>
+      Se o mesmo PJ emite nota para <b>mais de uma empresa ou obra</b>, lance <b>uma linha para cada
+      empresa</b>, com o valor que cabe a cada uma — repetindo o nome do PJ. É assim que o Gente e
+      Gestão consegue pedir a verba no lugar certo. Marque "Sim" na última coluna nesses casos.
+    </div>
+
+    <div id="pj-quadro"></div>
+
+    <p class="aviso-inline">
+      Lembrete: este preenchimento é uma previsão para o orçamento, sujeita à aprovação da diretoria
+      da sua área, e não substitui o fluxo normal de contratação do prestador.
+    </p>
+    <button type="button" class="primary-btn" id="pj-add-btn">Adicionar prestadores à lista</button>
+    <div class="msg" id="pj-msg"></div>
+  </div>
+
+  <div class="card list-card">
+    <h2>Registros adicionados nesta sessão</h2>
+    <div id="lista-registros"><div class="list-empty">Nenhum registro adicionado ainda.</div></div>
+  </div>
+
+  <div class="card">
+    <h2>Conferência e importação</h2>
+    <p class="aviso-inline">Baixe o .csv para conferir o que já lançou. Se você já tinha preenchido o formulário offline e exportado o arquivo .json, use “Importar rascunho” para trazer os dados para cá.</p>
+    <div class="export-row">
+      <button type="button" class="primary-btn" id="btn-export-json" hidden>Exportar arquivo (.json)</button>
+      <button type="button" class="secondary-btn" id="btn-export-csv">Baixar conferência (.csv)</button>
+      <label class="secondary-btn" style="cursor:pointer;">
+        Importar rascunho (.json)
+        <input type="file" id="input-import" accept="application/json" style="display:none;">
+      </label>
+    </div>
+    <div class="msg" id="export-msg"></div>
+  </div>
+
+  <div id="gg-devolver"></div>
+  <div id="gg-detalhe"></div>
+
+  <footer class="note">Gente e Gestão · Brasil Terrenos — os dados ficam salvos na base da Gente e Gestão e são entregues quando você clica em “Devolver”.</footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="gg-form.js" data-form="F2"></script>
+<script>
+window.GG_FORM_MAIN = function(){
+  "use strict";
+
+  var STORAGE_KEY = 'orcamento2027_rascunho_v1';
+
+  var state = {
+    numeroEmpresa: '', empresa: '', gestorNome: '', gestorEmail: '',
+    feriasConfirmadas: false, feriasConfirmadasEm: null,
+    obras: [], administrativo: [], prestadoresPJ: []
+  };
+
+  // ---------- persistence ----------
+  function save(){
+    try{ window.GG.salvar(state); }catch(e){}
+  }
+  function load(){
+    try{
+      var raw = window.GG.rascunho();
+      if (!raw) return;
+      var parsed = JSON.parse(raw);
+      state.numeroEmpresa = parsed.numeroEmpresa || '';
+      state.empresa = parsed.empresa || '';
+      state.gestorNome = parsed.gestorNome || '';
+      state.gestorEmail = parsed.gestorEmail || '';
+      state.feriasConfirmadas = !!parsed.feriasConfirmadas;
+      state.feriasConfirmadasEm = parsed.feriasConfirmadasEm || null;
+      state.obras = Array.isArray(parsed.obras) ? parsed.obras : [];
+      state.administrativo = Array.isArray(parsed.administrativo) ? parsed.administrativo : [];
+      state.prestadoresPJ = Array.isArray(parsed.prestadoresPJ) ? parsed.prestadoresPJ : [];
+    }catch(e){}
+  }
+  load();
+
+  function fmtDataHora(iso){
+    try{
+      var d = new Date(iso);
+      return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+    }catch(e){ return iso; }
+  }
+  function renderCarimboFerias(){
+    var el = document.getElementById('ferias-carimbo');
+    if (state.feriasConfirmadas && state.feriasConfirmadasEm){
+      el.textContent = 'Confirmação registrada em ' + fmtDataHora(state.feriasConfirmadasEm) + '.';
+      el.hidden = false;
+    } else {
+      el.textContent = '';
+      el.hidden = true;
+    }
+  }
+
+  document.getElementById('top-num-empresa').value = state.numeroEmpresa;
+  document.getElementById('top-empresa').value = state.empresa;
+  document.getElementById('top-gestor-nome').value = state.gestorNome;
+  document.getElementById('top-gestor-email').value = state.gestorEmail;
+  document.getElementById('top-ferias-confirm').checked = state.feriasConfirmadas;
+  renderCarimboFerias();
+  ['top-num-empresa','top-empresa','top-gestor-nome','top-gestor-email'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){
+      state.numeroEmpresa = document.getElementById('top-num-empresa').value.trim().toUpperCase();
+      state.empresa = document.getElementById('top-empresa').value.trim().toUpperCase();
+      state.gestorNome = document.getElementById('top-gestor-nome').value.trim().toUpperCase();
+      state.gestorEmail = document.getElementById('top-gestor-email').value.trim().toLowerCase();
+      save();
+    });
+  });
+  document.getElementById('top-ferias-confirm').addEventListener('change', function(){
+    state.feriasConfirmadas = this.checked;
+    state.feriasConfirmadasEm = this.checked ? new Date().toISOString() : null;
+    renderCarimboFerias();
+    save();
+  });
+
+  // ---------- padronização de preenchimento ----------
+  // Todo campo de texto é gravado em MAIÚSCULAS; e-mail fica em minúsculas.
+  // Campos de mês usam máscara e validação MM/AAAA.
+  var RE_MES_ANO = /^(0[1-9]|1[0-2])\/\d{4}$/;
+
+  function formatarMesAno(valor){
+    var d = valor.replace(/\D/g, '').slice(0, 6);
+    if (d.length <= 2) return d;
+    return d.slice(0, 2) + '/' + d.slice(2);
+  }
+
+  document.addEventListener('input', function(ev){
+    var el = ev.target;
+    if (!el || el.tagName !== 'INPUT') return;
+
+    if (el.classList.contains('mes-ano')){
+      el.value = formatarMesAno(el.value);
+      el.classList.remove('campo-erro');
+      return;
+    }
+    if (el.type === 'email'){
+      var lower = el.value.toLowerCase();
+      if (lower !== el.value){
+        var s = el.selectionStart, e = el.selectionEnd;
+        el.value = lower;
+        try{ el.setSelectionRange(s, e); }catch(err){}
+      }
+      return;
+    }
+    if (el.type === 'text'){
+      var up = el.value.toUpperCase();
+      if (up !== el.value){
+        var si = el.selectionStart, ei = el.selectionEnd;
+        el.value = up;
+        try{ el.setSelectionRange(si, ei); }catch(err){}
+      }
+    }
+  });
+
+  // Valida os campos MM/AAAA preenchidos dentro da aba informada.
+  function mesesInvalidos(seletorAba){
+    var invalidos = [];
+    document.querySelectorAll(seletorAba + ' .mes-ano').forEach(function(el){
+      el.classList.remove('campo-erro');
+      if (el.value.trim() !== '' && !RE_MES_ANO.test(el.value.trim())){
+        el.classList.add('campo-erro');
+        invalidos.push(el);
+      }
+    });
+    return invalidos;
+  }
+
+  // ---------- tabs ----------
+  var ABAS = {
+    obras: { botao: 'tab-btn-obras', painel: 'tab-obras' },
+    admin: { botao: 'tab-btn-admin', painel: 'tab-admin' },
+    pj:    { botao: 'tab-btn-pj',    painel: 'tab-pj' }
+  };
+  function selectTab(qual){
+    Object.keys(ABAS).forEach(function(chave){
+      var ativa = (chave === qual);
+      document.getElementById(ABAS[chave].botao).setAttribute('aria-selected', ativa ? 'true' : 'false');
+      document.getElementById(ABAS[chave].painel).hidden = !ativa;
+    });
+  }
+  Object.keys(ABAS).forEach(function(chave){
+    document.getElementById(ABAS[chave].botao).addEventListener('click', function(){ selectTab(chave); });
+  });
+
+  // ---------- toggles ----------
+  function wireToggle(groupId, boxId, onChange){
+    var group = document.getElementById(groupId);
+    var box = boxId ? document.getElementById(boxId) : null;
+    var btns = group.querySelectorAll('.toggle-btn');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        btns.forEach(function(b){ b.setAttribute('aria-pressed', 'false'); });
+        btn.setAttribute('aria-pressed', 'true');
+        if (box) box.classList.toggle('show', btn.dataset.val === (boxId.indexOf('nova') >= 0 ? 'nao' : 'sim'));
+        if (onChange) onChange(btn.dataset.val);
+      });
+    });
+  }
+  wireToggle('obr-cadastrada-group', 'obr-nova-box');
+  wireToggle('adm-cadastrada-group', 'adm-nova-box');
+  wireToggle('obr-alojados-group', 'obr-alojados-box');
+
+  function getToggleVal(groupId){
+    return document.getElementById(groupId).querySelector('[aria-pressed="true"]').dataset.val;
+  }
+
+  // ---------- fábrica de quadros repetíveis ----------
+  function criarQuadroRepetivel(cfg){
+    var container = document.getElementById(cfg.containerId);
+    var n = 0;
+    container.innerHTML =
+      '<div class="quadro-title"><h3>' + cfg.titulo + '</h3>' +
+      '<span class="n" id="' + cfg.prefix + '-count">0 ' + cfg.plural + '</span></div>' +
+      (cfg.descricao ? '<p class="aviso-inline" style="margin-top:8px;">' + cfg.descricao + '</p>' : '') +
+      '<div class="quadro-scroll" style="margin-top:10px;"><table class="quadro"><thead><tr>' +
+      '<th style="width:26px;"></th>' +
+      cfg.colunas.map(function(c){ return '<th>' + c.label + '</th>'; }).join('') +
+      '</tr></thead><tbody id="' + cfg.prefix + '-body"></tbody></table></div>' +
+      '<button type="button" class="add-row-btn" id="' + cfg.prefix + '-add" style="margin-top:10px;">' + cfg.labelBotao + '</button>';
+
+    var body = document.getElementById(cfg.prefix + '-body');
+    var countEl = document.getElementById(cfg.prefix + '-count');
+
+    function atualizarContagem(){
+      var q = body.children.length;
+      countEl.textContent = q + ' ' + (q === 1 ? cfg.singular : cfg.plural);
+    }
+
+    function novaLinha(){
+      var i = ++n;
+      var tr = document.createElement('tr');
+      tr.dataset.idx = i;
+      var tds = '<td><button type="button" class="row-remove" title="Remover linha">&times;</button></td>';
+      cfg.colunas.forEach(function(c){
+        var id = cfg.prefix + '-' + c.key + '-' + i;
+        if (c.type === 'select'){
+          tds += '<td><select id="' + id + '">' + c.options.map(function(o){
+            return '<option value="' + o.v + '">' + o.t + '</option>';
+          }).join('') + '</select></td>';
+        } else if (c.type === 'mes'){
+          tds += '<td><input type="text" class="mes-ano" inputmode="numeric" maxlength="7" id="' + id + '" placeholder="MM/AAAA"></td>';
+        } else if (c.type === 'numero'){
+          tds += '<td><input type="number" min="0" step="' + (c.step || '1') + '" id="' + id + '" placeholder="' + (c.placeholder || '') + '"></td>';
+        } else {
+          tds += '<td><input type="text" id="' + id + '" placeholder="' + (c.placeholder || '') + '"></td>';
+        }
+      });
+      tr.innerHTML = tds;
+      tr.querySelector('.row-remove').addEventListener('click', function(){ tr.remove(); atualizarContagem(); });
+      body.appendChild(tr);
+      atualizarContagem();
+    }
+
+    document.getElementById(cfg.prefix + '-add').addEventListener('click', novaLinha);
+
+    return {
+      coletar: function(){
+        var out = [];
+        Array.prototype.forEach.call(body.children, function(tr){
+          var i = tr.dataset.idx;
+          var obj = {};
+          var preenchido = false;
+          cfg.colunas.forEach(function(c){
+            var el = document.getElementById(cfg.prefix + '-' + c.key + '-' + i);
+            var v = el.value;
+            if (c.type === 'numero'){
+              obj[c.key] = v === '' ? null : Number(v);
+              if (v !== '') preenchido = true;
+            } else {
+              obj[c.key] = v.trim();
+              if (v.trim() !== '' && c.type !== 'select') preenchido = true;
+            }
+          });
+          if (preenchido) out.push(obj);
+        });
+        return out;
+      },
+      limpar: function(){ body.innerHTML = ''; n = 0; atualizarContagem(); }
+    };
+  }
+
+  var COLUNAS_DESLIGAMENTO = [
+    {key:'cargo', label:'Cargo', type:'texto', placeholder:'Ex.: Pedreiro'},
+    {key:'quantidade', label:'Qtd.', type:'numero', step:'1', placeholder:'1'},
+    {key:'mes', label:'Mês previsto (MM/AAAA)', type:'mes'},
+    {key:'motivo', label:'Motivo', type:'select', options:[
+      {v:'FIM_CONTRATO', t:'Fim de obra / contrato'},
+      {v:'REESTRUTURACAO', t:'Reestruturação'},
+      {v:'DESEMPENHO', t:'Desempenho'},
+      {v:'PEDIDO_COLABORADOR', t:'Pedido do colaborador'},
+      {v:'OUTRO', t:'Outro'}
+    ]}
+  ];
+  var COLUNAS_TRANSFERENCIA = [
+    {key:'cargo', label:'Cargo', type:'texto', placeholder:'Ex.: Encarregado'},
+    {key:'quantidade', label:'Qtd.', type:'numero', step:'1', placeholder:'1'},
+    {key:'origem', label:'Empresa / Obra de origem', type:'texto', placeholder:'Ex.: 756 - CACERES / 91200'},
+    {key:'destino', label:'Empresa / Obra de destino', type:'texto', placeholder:'Ex.: 606 - OITAVA / 65009'},
+    {key:'mes', label:'Mês previsto (MM/AAAA)', type:'mes'}
+  ];
+  var COLUNAS_TREINAMENTO = [
+    {key:'tipoTreinamento', label:'Tipo de treinamento', type:'texto', placeholder:'Ex.: NR-35'},
+    {key:'mes', label:'Mês (MM/AAAA)', type:'mes'},
+    {key:'valor', label:'Valor (R$)', type:'numero', step:'0.01', placeholder:'0,00'},
+    {key:'quantidadePessoas', label:'Qtd. de pessoas', type:'numero', step:'1', placeholder:'0'},
+    {key:'incluiViagemPDL', label:'Inclui viagem (PDL)?', type:'select', options:[
+      {v:'NAO', t:'Não'}, {v:'SIM', t:'Sim'}
+    ]}
+  ];
+  var DESC_DESLIGAMENTO = 'Informe as saídas já previstas. Sem isso o quadro fica superestimado e a rescisão não é provisionada.';
+  var DESC_TRANSFERENCIA = 'A transferência precisa ser planejada previamente. Sem esse registro, a mesma pessoa pode ser orçada duas vezes: como saída não informada na origem e como contratação nova no destino.';
+  var DESC_TREINAMENTO = 'Treinamento entra em composição própria. Marque "inclui viagem (PDL)" quando houver deslocamento, para a viagem não ser classificada como despesa administrativa.';
+
+  var quadros = {
+    obrDeslig: criarQuadroRepetivel({containerId:'obr-quadro-desligamentos', prefix:'obr-deslig', titulo:'Desligamentos previstos', descricao:DESC_DESLIGAMENTO, labelBotao:'+ Adicionar desligamento', singular:'registro', plural:'registros', colunas:COLUNAS_DESLIGAMENTO}),
+    obrTransf: criarQuadroRepetivel({containerId:'obr-quadro-transferencias', prefix:'obr-transf', titulo:'Transferências previstas entre empresas / obras', descricao:DESC_TRANSFERENCIA, labelBotao:'+ Adicionar transferência', singular:'registro', plural:'registros', colunas:COLUNAS_TRANSFERENCIA}),
+    obrTrein: criarQuadroRepetivel({containerId:'obr-quadro-treinamentos', prefix:'obr-trein', titulo:'Treinamentos previstos para a equipe', descricao:DESC_TREINAMENTO, labelBotao:'+ Adicionar treinamento', singular:'registro', plural:'registros', colunas:COLUNAS_TREINAMENTO}),
+    admDeslig: criarQuadroRepetivel({containerId:'adm-quadro-desligamentos', prefix:'adm-deslig', titulo:'Desligamentos previstos', descricao:DESC_DESLIGAMENTO, labelBotao:'+ Adicionar desligamento', singular:'registro', plural:'registros', colunas:COLUNAS_DESLIGAMENTO}),
+    admTransf: criarQuadroRepetivel({containerId:'adm-quadro-transferencias', prefix:'adm-transf', titulo:'Transferências previstas entre empresas / unidades', descricao:DESC_TRANSFERENCIA, labelBotao:'+ Adicionar transferência', singular:'registro', plural:'registros', colunas:COLUNAS_TRANSFERENCIA}),
+    admTrein: criarQuadroRepetivel({containerId:'adm-quadro-treinamentos', prefix:'adm-trein', titulo:'Treinamentos previstos para a equipe', descricao:DESC_TREINAMENTO, labelBotao:'+ Adicionar treinamento', singular:'registro', plural:'registros', colunas:COLUNAS_TREINAMENTO}),
+    pj: criarQuadroRepetivel({
+      containerId: 'pj-quadro', prefix: 'pj',
+      titulo: 'Prestadores PJ previstos (I23121)',
+      descricao: 'Uma linha por empresa/obra que recebe a nota. O mesmo prestador pode aparecer em várias linhas.',
+      labelBotao: '+ Adicionar prestador', singular: 'registro', plural: 'registros',
+      colunas: [
+        {key:'nomePJ', label:'Nome do PJ', type:'texto', placeholder:'Ex.: TOPOGRAFIA SILVA LTDA'},
+        {key:'atividade', label:'Atividade exercida', type:'texto', placeholder:'Ex.: TOPOGRAFIA'},
+        {key:'numeroEmpresa', label:'Nº da Empresa', type:'texto', placeholder:'Ex.: 756'},
+        {key:'empresa', label:'Nome da Empresa', type:'texto', placeholder:'Ex.: CIDADE JARDIM CACERES'},
+        {key:'obra', label:'Obra', type:'texto', placeholder:'Ex.: 91200'},
+        {key:'valorPrestacao', label:'Valor da prestação (R$)', type:'numero', step:'0.01', placeholder:'0,00'},
+        {key:'tipoValor', label:'Valor é', type:'select', options:[
+          {v:'MENSAL', t:'Mensal'}, {v:'PONTUAL', t:'Pontual (uma vez)'}
+        ]},
+        {key:'mesInicio', label:'Mês de início (MM/AAAA)', type:'mes'},
+        {key:'multiEmpresa', label:'Emite nota para mais de uma empresa?', type:'select', options:[
+          {v:'NAO', t:'Não'}, {v:'SIM', t:'Sim'}
+        ]}
+      ]
+    })
+  };
+
+  // Converte a marcação de viagem PDL para booleano antes de gravar o registro.
+  function normalizarTreinamentos(lista){
+    return lista.map(function(t){
+      return {
+        tipoTreinamento: t.tipoTreinamento,
+        mes: t.mes,
+        valor: t.valor,
+        quantidadePessoas: t.quantidadePessoas,
+        incluiViagemPDL: t.incluiViagemPDL === 'SIM'
+      };
+    });
+  }
+
+  // ---------- cargo rows ----------
+  var counters = { obr: 0, adm: 0, 'obr-reaj': 0, 'adm-reaj': 0 };
+
+  function makeCargoRow(prefix){
+    var i = ++counters[prefix];
+    var tr = document.createElement('tr');
+    tr.dataset.rowId = prefix + '-' + i;
+    tr.innerHTML =
+      '<td><button type="button" class="row-remove" title="Remover linha">&times;</button></td>' +
+      '<td class="cargo-col"><input type="text" id="' + prefix + '-cargo-' + i + '" placeholder="Ex.: Pedreiro"></td>' +
+      '<td><select id="' + prefix + '-vinculo-' + i + '">' +
+        '<option value="CLT">CLT</option>' +
+        '<option value="ESTAGIO">Estágio</option>' +
+        '<option value="APRENDIZ">Jovem aprendiz</option>' +
+        '<option value="TEMPORARIO">Temporário</option>' +
+      '</select></td>' +
+      '<td><select id="' + prefix + '-motivo-' + i + '">' +
+        '<option value="aumento">Aumento</option>' +
+        '<option value="reposicao">Reposição</option>' +
+      '</select></td>' +
+      '<td><input type="number" id="' + prefix + '-qtd-' + i + '" min="1" step="1" value="1"></td>' +
+      '<td><input type="number" id="' + prefix + '-sal-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="text" class="mes-ano" inputmode="numeric" maxlength="7" id="' + prefix + '-comp-' + i + '" placeholder="MM/AAAA"></td>' +
+      '<td><input type="number" id="' + prefix + '-alim-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-alimlocal-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-transp-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-assistmed-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-he-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-grat-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-outros-' + i + '" min="0" step="0.01" placeholder="0,00"></td>' +
+      '<td><input type="number" id="' + prefix + '-peric-' + i + '" min="0" max="100" step="1" placeholder="—"></td>';
+    tr.querySelector('.row-remove').addEventListener('click', function(){
+      var body = tr.parentElement;
+      if (body.children.length > 1){ tr.remove(); updateCargoCount(prefix); }
+    });
+    return tr;
+  }
+  function updateCargoCount(prefix){
+    var body = document.getElementById(prefix + '-cargos-body');
+    var n = body.children.length;
+    document.getElementById(prefix + '-count').textContent = n + (n === 1 ? ' cargo' : ' cargos');
+  }
+  function addCargoRow(prefix){
+    document.getElementById(prefix + '-cargos-body').appendChild(makeCargoRow(prefix));
+    updateCargoCount(prefix);
+  }
+  document.getElementById('obr-add-row').addEventListener('click', function(){ addCargoRow('obr'); });
+  document.getElementById('adm-add-row').addEventListener('click', function(){ addCargoRow('adm'); });
+  addCargoRow('obr'); addCargoRow('adm');
+
+  function collectCargos(prefix){
+    var body = document.getElementById(prefix + '-cargos-body');
+    var out = [];
+    Array.prototype.forEach.call(body.children, function(tr){
+      var i = tr.dataset.rowId.split('-').pop();
+      var cargo = document.getElementById(prefix + '-cargo-' + i).value.trim();
+      if (!cargo) return;
+      out.push({
+        cargo: cargo,
+        vinculo: document.getElementById(prefix + '-vinculo-' + i).value,
+        motivo: document.getElementById(prefix + '-motivo-' + i).value,
+        quantidade: Number(document.getElementById(prefix + '-qtd-' + i).value || 1),
+        salario: Number(document.getElementById(prefix + '-sal-' + i).value || 0),
+        competenciaInicioContratacao: document.getElementById(prefix + '-comp-' + i).value.trim() || null,
+        beneficioAlimentacao: Number(document.getElementById(prefix + '-alim-' + i).value || 0),
+        alimentacaoLocal: Number(document.getElementById(prefix + '-alimlocal-' + i).value || 0),
+        beneficioTransporte: Number(document.getElementById(prefix + '-transp-' + i).value || 0),
+        assistenciaMedica: Number(document.getElementById(prefix + '-assistmed-' + i).value || 0),
+        horaExtra: Number(document.getElementById(prefix + '-he-' + i).value || 0),
+        gratificacao: Number(document.getElementById(prefix + '-grat-' + i).value || 0),
+        outrosBeneficios: Number(document.getElementById(prefix + '-outros-' + i).value || 0),
+        adicionalPericulosidadePct: document.getElementById(prefix + '-peric-' + i).value === '' ? null : Number(document.getElementById(prefix + '-peric-' + i).value)
+      });
+    });
+    return out;
+  }
+  function clearCargos(prefix){
+    document.getElementById(prefix + '-cargos-body').innerHTML = '';
+    addCargoRow(prefix);
+  }
+
+  // ---------- reajuste rows ----------
+  function makeReajRow(prefix){
+    var key = prefix + '-reaj';
+    var i = ++counters[key];
+    var tr = document.createElement('tr');
+    tr.dataset.rowId = key + '-' + i;
+    tr.innerHTML =
+      '<td><button type="button" class="row-remove" title="Remover linha">&times;</button></td>' +
+      '<td><input type="text" id="' + key + '-nome-' + i + '" placeholder="Nome do colaborador"></td>' +
+      '<td><input type="text" id="' + key + '-cargo-' + i + '" placeholder="Cargo"></td>' +
+      '<td><input type="number" id="' + key + '-pct-' + i + '" min="0" step="0.1" placeholder="Ex.: 5"></td>' +
+      '<td><input type="text" class="mes-ano" inputmode="numeric" maxlength="7" id="' + key + '-mes-' + i + '" placeholder="MM/AAAA"></td>';
+    tr.querySelector('.row-remove').addEventListener('click', function(){
+      tr.remove(); updateReajCount(prefix);
+    });
+    return tr;
+  }
+  function updateReajCount(prefix){
+    var body = document.getElementById(prefix + '-reaj-body');
+    var n = body.children.length;
+    document.getElementById(prefix + '-reaj-count').textContent = n + (n === 1 ? ' registro' : ' registros');
+  }
+  function addReajRow(prefix){
+    document.getElementById(prefix + '-reaj-body').appendChild(makeReajRow(prefix));
+    updateReajCount(prefix);
+  }
+  document.getElementById('obr-reaj-add').addEventListener('click', function(){ addReajRow('obr'); });
+  document.getElementById('adm-reaj-add').addEventListener('click', function(){ addReajRow('adm'); });
+
+  function collectReajustes(prefix){
+    var key = prefix + '-reaj';
+    var body = document.getElementById(key + '-body');
+    var out = [];
+    Array.prototype.forEach.call(body.children, function(tr){
+      var i = tr.dataset.rowId.split('-').pop();
+      var nome = document.getElementById(key + '-nome-' + i).value.trim();
+      var cargo = document.getElementById(key + '-cargo-' + i).value.trim();
+      if (!nome && !cargo) return;
+      out.push({
+        nome: nome, cargo: cargo,
+        percentualEsperado: document.getElementById(key + '-pct-' + i).value === '' ? null : Number(document.getElementById(key + '-pct-' + i).value),
+        mesPrevisto: document.getElementById(key + '-mes-' + i).value.trim()
+      });
+    });
+    return out;
+  }
+  function clearReajustes(prefix){
+    document.getElementById(prefix + '-reaj-body').innerHTML = '';
+    document.getElementById(prefix + '-reaj-count').textContent = '0 registros';
+  }
+
+  // ---------- add record to list ----------
+  function setMsg(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+  function renderLista(){
+    var el = document.getElementById('lista-registros');
+    var total = state.obras.length + state.administrativo.length + state.prestadoresPJ.length;
+    if (total === 0){ el.innerHTML = '<div class="list-empty">Nenhum registro adicionado ainda.</div>'; return; }
+    el.innerHTML = '';
+    state.obras.forEach(function(rec, idx){
+      var item = document.createElement('div');
+      item.className = 'list-item';
+      item.innerHTML =
+        '<div><div class="l1">Obra · ' + (rec.obra || '—') + ' (' + (rec.cidade || '—') + ')</div>' +
+        '<div class="l2">' + (rec.cargos || []).length + ' contratação(ões) · ' + (rec.desligamentos || []).length +
+        ' desligamento(s) · ' + (rec.transferencias || []).length + ' transferência(s) · ' +
+        (rec.treinamentos || []).length + ' treinamento(s)</div></div>' +
+        '<button data-tipo="obras" data-idx="' + idx + '">Remover</button>';
+      el.appendChild(item);
+    });
+    state.administrativo.forEach(function(rec, idx){
+      var item = document.createElement('div');
+      item.className = 'list-item';
+      item.innerHTML =
+        '<div><div class="l1">Administrativo · ' + (rec.unidade || '—') + ' (' + (rec.cidade || '—') + ')</div>' +
+        '<div class="l2">' + (rec.cargos || []).length + ' contratação(ões) · ' + (rec.desligamentos || []).length +
+        ' desligamento(s) · ' + (rec.transferencias || []).length + ' transferência(s) · ' +
+        (rec.treinamentos || []).length + ' treinamento(s)</div></div>' +
+        '<button data-tipo="administrativo" data-idx="' + idx + '">Remover</button>';
+      el.appendChild(item);
+    });
+    state.prestadoresPJ.forEach(function(rec, idx){
+      var item = document.createElement('div');
+      item.className = 'list-item';
+      var empresaLabel = (rec.numeroEmpresa ? rec.numeroEmpresa + ' - ' : '') + (rec.empresa || '—');
+      item.innerHTML =
+        '<div><div class="l1">PJ · ' + (rec.nomePJ || '—') + '</div>' +
+        '<div class="l2">' + empresaLabel + ' · Obra ' + (rec.obra || '—') + ' · ' +
+        (rec.tipoValor === 'PONTUAL' ? 'pontual' : 'mensal') +
+        (rec.mesInicio ? ' a partir de ' + rec.mesInicio : '') +
+        (rec.multiEmpresa === 'SIM' ? ' · atende mais de uma empresa' : '') + '</div></div>' +
+        '<button data-tipo="prestadoresPJ" data-idx="' + idx + '">Remover</button>';
+      el.appendChild(item);
+    });
+    el.querySelectorAll('button[data-tipo]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var tipo = btn.dataset.tipo, idx = Number(btn.dataset.idx);
+        state[tipo].splice(idx, 1);
+        save(); renderLista();
+      });
+    });
+  }
+  renderLista();
+
+  document.getElementById('pj-add-btn').addEventListener('click', function(){
+    var msg = document.getElementById('pj-msg');
+    var invalidos = mesesInvalidos('#tab-pj');
+    if (invalidos.length > 0){
+      setMsg(msg, 'Corrija os campos de mês destacados em vermelho — use o formato MM/AAAA, por exemplo 01/2027.', false);
+      invalidos[0].focus();
+      return;
+    }
+    var linhas = quadros.pj.coletar();
+    if (linhas.length === 0){
+      setMsg(msg, 'Preencha ao menos um prestador antes de adicionar à lista.', false); return;
+    }
+    var semEmpresa = linhas.filter(function(l){ return !l.empresa && !l.numeroEmpresa; });
+    if (semEmpresa.length > 0){
+      setMsg(msg, 'Informe a empresa de cada prestador — é ela que define para onde a verba será pedida.', false); return;
+    }
+    linhas.forEach(function(l){ state.prestadoresPJ.push(l); });
+    save(); renderLista();
+    setMsg(msg, linhas.length + (linhas.length === 1 ? ' prestador adicionado' : ' prestadores adicionados') + ' à lista.', true);
+    quadros.pj.limpar();
+  });
+
+  document.getElementById('obr-add-btn').addEventListener('click', function(){
+    var msg = document.getElementById('obr-msg');
+    var invalidos = mesesInvalidos('#tab-obras');
+    if (invalidos.length > 0){
+      setMsg(msg, 'Corrija os campos de mês destacados em vermelho — use o formato MM/AAAA, por exemplo 01/2027.', false);
+      invalidos[0].focus();
+      return;
+    }
+    var cargos = collectCargos('obr');
+    var deslig = quadros.obrDeslig.coletar();
+    var transf = quadros.obrTransf.coletar();
+    var trein = normalizarTreinamentos(quadros.obrTrein.coletar());
+    if (!document.getElementById('obr-obra').value.trim()){ setMsg(msg, 'Informe a Obra / Centro de Custo.', false); return; }
+    if (cargos.length === 0 && deslig.length === 0 && transf.length === 0 && trein.length === 0){
+      setMsg(msg, 'Preencha ao menos um quadro antes de adicionar a obra à lista.', false); return;
+    }
+    var cadastrada = getToggleVal('obr-cadastrada-group') === 'sim';
+    var alojados = getToggleVal('obr-alojados-group') === 'sim';
+    var rec = {
+      obra: document.getElementById('obr-obra').value.trim(),
+      cidade: document.getElementById('obr-cidade').value.trim(),
+      regional: document.getElementById('obr-regional').value.trim(),
+      inicioObra: document.getElementById('obr-inicio').value,
+      fimObra: document.getElementById('obr-sem-fim').checked ? null : (document.getElementById('obr-fim').value || null),
+      semPrevisaoTermino: document.getElementById('obr-sem-fim').checked,
+      valorMarmitaDiario: Number(document.getElementById('obr-marmita').value || 0),
+      temAlojados: alojados,
+      alojadosQtd: alojados ? Number(document.getElementById('obr-alojados-qtd').value || 0) : 0,
+      alojadosCargos: alojados ? document.getElementById('obr-alojados-cargos').value.trim() : '',
+      jaCadastrada: cadastrada,
+      cnpj: cadastrada ? '' : document.getElementById('obr-cnpj').value.trim(),
+      convenio: cadastrada ? '' : document.getElementById('obr-convenio').value.trim(),
+      convenioNaoSei: cadastrada ? false : document.getElementById('obr-nao-sei-convenio').checked,
+      cargos: cargos,
+      desligamentos: deslig,
+      transferencias: transf,
+      treinamentos: trein,
+      reajustes: collectReajustes('obr')
+    };
+    state.obras.push(rec); save(); renderLista();
+    setMsg(msg, 'Obra adicionada à lista. Você pode preencher outra ou já devolver.', true);
+    document.getElementById('obr-obra').value = '';
+    document.getElementById('obr-cidade').value = '';
+    document.getElementById('obr-regional').value = '';
+    document.getElementById('obr-inicio').value = '';
+    document.getElementById('obr-fim').value = '';
+    document.getElementById('obr-sem-fim').checked = false;
+    document.getElementById('obr-marmita').value = '';
+    document.getElementById('obr-alojados-qtd').value = '';
+    document.getElementById('obr-alojados-cargos').value = '';
+    document.getElementById('obr-cnpj').value = '';
+    document.getElementById('obr-convenio').value = '';
+    document.getElementById('obr-nao-sei-convenio').checked = false;
+    document.getElementById('obr-alojados-box').classList.remove('show');
+    document.getElementById('obr-nova-box').classList.remove('show');
+    document.getElementById('obr-alojados-group').querySelectorAll('.toggle-btn').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.val==='nao'?'true':'false'); });
+    document.getElementById('obr-cadastrada-group').querySelectorAll('.toggle-btn').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.val==='sim'?'true':'false'); });
+    clearCargos('obr'); clearReajustes('obr');
+    quadros.obrDeslig.limpar(); quadros.obrTransf.limpar(); quadros.obrTrein.limpar();
+  });
+
+  document.getElementById('adm-add-btn').addEventListener('click', function(){
+    var msg = document.getElementById('adm-msg');
+    var invalidos = mesesInvalidos('#tab-admin');
+    if (invalidos.length > 0){
+      setMsg(msg, 'Corrija os campos de mês destacados em vermelho — use o formato MM/AAAA, por exemplo 01/2027.', false);
+      invalidos[0].focus();
+      return;
+    }
+    var cargos = collectCargos('adm');
+    var deslig = quadros.admDeslig.coletar();
+    var transf = quadros.admTransf.coletar();
+    var trein = normalizarTreinamentos(quadros.admTrein.coletar());
+    if (!document.getElementById('adm-unidade').value.trim()){ setMsg(msg, 'Informe a Unidade / Local.', false); return; }
+    if (cargos.length === 0 && deslig.length === 0 && transf.length === 0 && trein.length === 0){
+      setMsg(msg, 'Preencha ao menos um quadro antes de adicionar a unidade à lista.', false); return;
+    }
+    var cadastrada = getToggleVal('adm-cadastrada-group') === 'sim';
+    var rec = {
+      unidade: document.getElementById('adm-unidade').value.trim(),
+      cidade: document.getElementById('adm-cidade').value.trim(),
+      regional: document.getElementById('adm-regional').value.trim(),
+      jaCadastrada: cadastrada,
+      cnpj: cadastrada ? '' : document.getElementById('adm-cnpj').value.trim(),
+      convenio: cadastrada ? '' : document.getElementById('adm-convenio').value.trim(),
+      convenioNaoSei: cadastrada ? false : document.getElementById('adm-nao-sei-convenio').checked,
+      cargos: cargos,
+      desligamentos: deslig,
+      transferencias: transf,
+      treinamentos: trein,
+      reajustes: collectReajustes('adm')
+    };
+    state.administrativo.push(rec); save(); renderLista();
+    setMsg(msg, 'Unidade adicionada à lista. Você pode preencher outra ou já devolver.', true);
+    document.getElementById('adm-unidade').value = '';
+    document.getElementById('adm-cidade').value = '';
+    document.getElementById('adm-regional').value = '';
+    document.getElementById('adm-cnpj').value = '';
+    document.getElementById('adm-convenio').value = '';
+    document.getElementById('adm-nao-sei-convenio').checked = false;
+    document.getElementById('adm-nova-box').classList.remove('show');
+    document.getElementById('adm-cadastrada-group').querySelectorAll('.toggle-btn').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.val==='sim'?'true':'false'); });
+    clearCargos('adm'); clearReajustes('adm');
+    quadros.admDeslig.limpar(); quadros.admTransf.limpar(); quadros.admTrein.limpar();
+  });
+
+  // ---------- export / import ----------
+  function download(filename, content, mime){
+    var blob = new Blob([content], {type: mime});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+  }
+
+  document.getElementById('btn-export-json').addEventListener('click', function(){
+    var msg = document.getElementById('export-msg');
+    if (state.obras.length + state.administrativo.length + state.prestadoresPJ.length === 0){ setMsg(msg, 'Adicione ao menos um registro antes de devolver.', false); return; }
+    var payload = {
+      exportadoEm: new Date().toISOString(),
+      numeroEmpresa: state.numeroEmpresa, empresa: state.empresa,
+      gestorNome: state.gestorNome, gestorEmail: state.gestorEmail,
+      feriasConfirmadas: state.feriasConfirmadas,
+      feriasConfirmadasEm: state.feriasConfirmadasEm,
+      obras: state.obras, administrativo: state.administrativo,
+      prestadoresPJ: state.prestadoresPJ
+    };
+    var stamp = new Date().toISOString().slice(0,10);
+    var nomeGestor = (state.gestorNome || 'gestor').replace(/[^a-zA-Z0-9]+/g, '_');
+    download('orcamento2027_' + nomeGestor + '_' + stamp + '.json', JSON.stringify(payload, null, 2), 'application/json');
+    setMsg(msg, 'Arquivo exportado. Envie-o por e-mail para o Gente e Gestão.', true);
+  });
+
+  function csvEsc(v){
+    v = (v === null || v === undefined) ? '' : String(v);
+    v = v.replace(/"/g, '""');
+    return '"' + v + '"';
+  }
+  function numBR(n){ return (Number(n)||0).toFixed(2).replace('.', ','); }
+
+  document.getElementById('btn-export-csv').addEventListener('click', function(){
+    var msg = document.getElementById('export-msg');
+    if (state.obras.length + state.administrativo.length + state.prestadoresPJ.length === 0){ setMsg(msg, 'Adicione ao menos um registro antes de devolver.', false); return; }
+    var header = ['Tipo','NumeroEmpresa','Empresa','Obra/Unidade','Cidade','Regional','Cargo','Vinculo','Motivo','CompetenciaInicio','Quantidade','Salario','ValeAlimentacao','AlimentacaoLocal','Transporte','AssistenciaMedica','HoraExtra','Gratificacao','OutrosBeneficios','PericulosidadePct'];
+    var lines = ['CONTRATACOES PREVISTAS', header.map(csvEsc).join(';')];
+
+    function linhaCargo(tipo, local, rec, c){
+      return [
+        tipo, state.numeroEmpresa, state.empresa, local, rec.cidade, rec.regional, c.cargo,
+        c.vinculo || 'CLT', c.motivo, c.competenciaInicioContratacao || '', c.quantidade,
+        numBR(c.salario), numBR(c.beneficioAlimentacao), numBR(c.alimentacaoLocal), numBR(c.beneficioTransporte),
+        numBR(c.assistenciaMedica), numBR(c.horaExtra), numBR(c.gratificacao), numBR(c.outrosBeneficios),
+        c.adicionalPericulosidadePct ?? ''
+      ].map(csvEsc).join(';');
+    }
+
+    state.obras.forEach(function(rec){
+      (rec.cargos || []).forEach(function(c){ lines.push(linhaCargo('Obra', rec.obra, rec, c)); });
+    });
+    state.administrativo.forEach(function(rec){
+      (rec.cargos || []).forEach(function(c){ lines.push(linhaCargo('Administrativo', rec.unidade, rec, c)); });
+    });
+
+    // Segunda seção: movimentações e demais blocos
+    lines.push('');
+    lines.push('MOVIMENTACOES E OUTROS BLOCOS');
+    lines.push(['Bloco','Tipo','NumeroEmpresa','Empresa','Obra/Unidade','Descricao','Complemento','Quantidade','Valor'].map(csvEsc).join(';'));
+
+    function blocosDoRegistro(tipo, local, rec){
+      (rec.desligamentos || []).forEach(function(d){
+        lines.push(['Desligamento previsto', tipo, state.numeroEmpresa, state.empresa, local, d.cargo,
+          (d.motivo || '') + (d.mes ? ' | Mês: ' + d.mes : ''), d.quantidade, ''].map(csvEsc).join(';'));
+      });
+      (rec.transferencias || []).forEach(function(t){
+        lines.push(['Transferência prevista', tipo, state.numeroEmpresa, state.empresa, local, t.cargo,
+          'De ' + (t.origem || '—') + ' para ' + (t.destino || '—') + (t.mes ? ' | Mês: ' + t.mes : ''),
+          t.quantidade, ''].map(csvEsc).join(';'));
+      });
+      (rec.treinamentos || []).forEach(function(t){
+        lines.push(['Treinamento', tipo, state.numeroEmpresa, state.empresa, local, t.tipoTreinamento,
+          'Mês: ' + (t.mes || '') + (t.incluiViagemPDL === true || t.incluiViagemPDL === 'SIM' ? ' | Inclui viagem PDL' : ''),
+          t.quantidadePessoas, numBR(t.valor)].map(csvEsc).join(';'));
+      });
+      (rec.reajustes || []).forEach(function(r){
+        lines.push(['Reajuste mérito/promoção', tipo, state.numeroEmpresa, state.empresa, local,
+          (r.nome || '') + ' (' + (r.cargo || '') + ')', 'Mês: ' + (r.mesPrevisto || ''), '',
+          (r.percentualEsperado ?? '') + '%'].map(csvEsc).join(';'));
+      });
+    }
+
+    state.obras.forEach(function(rec){ blocosDoRegistro('Obra', rec.obra, rec); });
+    state.administrativo.forEach(function(rec){ blocosDoRegistro('Administrativo', rec.unidade, rec); });
+
+    // Terceira seção: prestadores PJ (insumo I23121)
+    if (state.prestadoresPJ.length > 0){
+      lines.push('');
+      lines.push('PRESTADORES PJ - I23121');
+      lines.push(['NomePJ','Atividade','NumeroEmpresa','Empresa','Obra','ValorPrestacao','TipoValor','MesInicio','EmiteParaMaisDeUmaEmpresa']
+        .map(csvEsc).join(';'));
+      state.prestadoresPJ.forEach(function(pj){
+        lines.push([
+          pj.nomePJ, pj.atividade, pj.numeroEmpresa, pj.empresa, pj.obra,
+          numBR(pj.valorPrestacao), pj.tipoValor === 'PONTUAL' ? 'Pontual' : 'Mensal',
+          pj.mesInicio || '', pj.multiEmpresa === 'SIM' ? 'Sim' : 'Não'
+        ].map(csvEsc).join(';'));
+      });
+    }
+
+    var csv = '﻿' + lines.join('\r\n');
+    var stamp = new Date().toISOString().slice(0,10);
+    download('orcamento2027_conferencia_' + stamp + '.csv', csv, 'text/csv;charset=utf-8');
+    setMsg(msg, 'CSV de conferência baixado (use apenas para revisão — o arquivo oficial é o .json).', true);
+  });
+
+  document.getElementById('input-import').addEventListener('change', function(ev){
+    var msg = document.getElementById('export-msg');
+    var file = ev.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(){
+      try{
+        var parsed = JSON.parse(reader.result);
+        state.numeroEmpresa = parsed.numeroEmpresa || state.numeroEmpresa;
+        state.empresa = parsed.empresa || state.empresa;
+        state.gestorNome = parsed.gestorNome || state.gestorNome;
+        state.gestorEmail = parsed.gestorEmail || state.gestorEmail;
+        state.feriasConfirmadas = !!parsed.feriasConfirmadas || state.feriasConfirmadas;
+        state.feriasConfirmadasEm = parsed.feriasConfirmadasEm || state.feriasConfirmadasEm;
+        state.obras = state.obras.concat(Array.isArray(parsed.obras) ? parsed.obras : []);
+        state.administrativo = state.administrativo.concat(Array.isArray(parsed.administrativo) ? parsed.administrativo : []);
+        state.prestadoresPJ = state.prestadoresPJ.concat(Array.isArray(parsed.prestadoresPJ) ? parsed.prestadoresPJ : []);
+        document.getElementById('top-num-empresa').value = state.numeroEmpresa;
+        document.getElementById('top-empresa').value = state.empresa;
+        document.getElementById('top-gestor-nome').value = state.gestorNome;
+        document.getElementById('top-gestor-email').value = state.gestorEmail;
+        document.getElementById('top-ferias-confirm').checked = state.feriasConfirmadas;
+        renderCarimboFerias();
+        save(); renderLista();
+        setMsg(msg, 'Rascunho importado e somado à lista atual.', true);
+      }catch(e){
+        setMsg(msg, 'Não foi possível ler este arquivo — confirme que é um .json exportado por esta página.', false);
+      }
+      ev.target.value = '';
+    };
+    reader.readAsText(file, 'utf-8');
+  });
+
+};
+</script>
+</body>
+</html>
