@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Preenchimento Gente e Gestão 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: barra de topo fixa + coluna única de cartões (gerente) ou painel com tabela de acompanhamento (master); tabelas rolam só dentro do próprio quadro */
+:root{
+  --bg:#F2F4F1; --surface:#FFFFFF; --ink:#16211C; --muted:#5A6862; --line:#D7DED9; --line-strong:#B9C4BD;
+  --accent:#1D6A50; --accent-ink:#FFFFFF; --accent-soft:#DDEEE5; --group:#E8EDE9;
+  --good:#2C7A4B; --warn:#9A5B00; --bad:#B0302A; --warn-soft:#FBEFD9; --bad-soft:#F8E1DF; --good-soft:#DFF0E5;
+  --info:#2F5F9A; --info-soft:#E1EAF6; --focus:#2F7FD0; --shadow:rgba(10,30,20,.18);
+  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111815; --surface:#18211D; --ink:#E4EBE7; --muted:#9AA9A2; --line:#2A3631; --line-strong:#3C4A44;
+  --accent:#4FB98E; --accent-ink:#0B1712; --accent-soft:#1E3A2E; --group:#1F2925;
+  --good:#5CC287; --warn:#E3A64A; --bad:#EF7B73; --warn-soft:#3A2D16; --bad-soft:#3D1F1D; --good-soft:#1B3526;
+  --info:#8DB6EC; --info-soft:#1C2A3D; --focus:#6AAEF0; --shadow:rgba(0,0,0,.5); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111815; --surface:#18211D; --ink:#E4EBE7; --muted:#9AA9A2; --line:#2A3631; --line-strong:#3C4A44;
+  --accent:#4FB98E; --accent-ink:#0B1712; --accent-soft:#1E3A2E; --group:#1F2925;
+  --good:#5CC287; --warn:#E3A64A; --bad:#EF7B73; --warn-soft:#3A2D16; --bad-soft:#3D1F1D; --good-soft:#1B3526;
+  --info:#8DB6EC; --info-soft:#1C2A3D; --focus:#6AAEF0; --shadow:rgba(0,0,0,.5); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.top-in,.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-block:12px}
+.brand{display:flex;flex-direction:column;min-width:0}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:21px;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.brand span{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.who{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.who b{color:var(--ink);font-weight:600}
+.wrap{padding-block:20px 56px;display:flex;flex-direction:column;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card h2{font-family:var(--f-display);font-size:18px;margin:0;text-wrap:balance}
+.card h3{font-family:var(--f-display);font-size:15px;margin:0}
+.desc{margin:0;color:var(--muted);max-width:75ch}
+.notice{max-width:640px}
+.muted{color:var(--muted)}
+.btn{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:7px 14px;border-radius:6px;font-weight:500}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.sm{padding:3px 9px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 16px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);min-width:0}
+input[type=text],input[type=email],input[type=password],input[type=number],select,textarea{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:6px;padding:7px 9px;min-width:0;text-transform:none;letter-spacing:normal}
+textarea{width:100%;min-height:60px}
+input:disabled,select:disabled,textarea:disabled{background:var(--group);color:var(--muted)}
+input[readonly]{background:var(--group)}
+.campo-erro{border-color:var(--bad)!important;background:var(--bad-soft)!important}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}
+.check input{width:16px;height:16px;margin-top:3px;flex:none}
+.msg{font-size:13px;min-height:1em}
+.msg.ok{color:var(--good)} .msg.err{color:var(--bad)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.pill.aguardando{background:var(--group);color:var(--muted)}
+.pill.liberado{background:var(--info-soft);color:var(--info)}
+.pill.rascunho{background:var(--warn-soft);color:var(--warn)}
+.pill.devolvido{background:var(--good-soft);color:var(--good)}
+.pill.reaberto{background:var(--bad-soft);color:var(--bad)}
+.pill.alerta{background:var(--bad-soft);color:var(--bad)}
+.aviso{border-left:4px solid var(--accent);background:var(--surface);border-radius:6px;padding:12px 16px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-size:13.5px}
+.aviso .t{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.banner{border-radius:8px;padding:12px 16px;font-size:14px;border:1px solid}
+.banner.lock{background:var(--good-soft);border-color:var(--good);color:var(--ink)}
+.banner.reopen{background:var(--bad-soft);border-color:var(--bad);color:var(--ink)}
+.regra{background:var(--group);border-radius:6px;padding:8px 12px;font-size:12.5px;color:var(--muted)}
+.regra b{color:var(--ink)}
+/* abas de departamento */
+.deps{display:flex;flex-wrap:wrap;gap:8px}
+.dep-tab{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:7px;padding:8px 12px;min-width:0;max-width:100%}
+.dep-tab small{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.dep-tab[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.dep-tab .st{font-size:11px;font-weight:600}
+.st.ok{color:var(--good)} .st.vazio{color:var(--warn)} .st.sem{color:var(--muted)}
+/* quadros */
+.q-title{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.q-title .n{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.q-scroll{overflow-x:auto;border:1px solid var(--line-strong);border-radius:7px}
+table.q{border-collapse:collapse;width:100%;min-width:620px}
+table.q th{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--group);text-align:left;padding:7px;border-bottom:1px solid var(--line-strong);white-space:nowrap;font-weight:600}
+table.q td{padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.q tr:last-child td{border-bottom:none}
+table.q input,table.q select{width:100%;min-width:80px;padding:5px 7px;font-size:13px}
+table.q td.wide{min-width:170px}
+table.q td.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.rm{background:none;border:1px solid var(--line-strong);color:var(--bad);border-radius:6px;width:26px;height:26px;line-height:1;padding:0}
+.add{align-self:flex-start}
+hr.div{border:none;border-top:1px solid var(--line);margin:0}
+.vazio-q{padding:10px;color:var(--muted);font-size:13px;font-style:italic}
+/* painel master */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.kpi{background:var(--surface);padding:10px 14px}
+.kpi .k{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.kpi .v{font-family:var(--f-mono);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.tbl-box{overflow-x:auto}
+table.list{border-collapse:collapse;width:100%;font-size:13px;min-width:760px}
+table.list th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+table.list td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+table.list td .sub{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+table.list td.acts{white-space:normal}
+table.list td.acts .row{gap:6px}
+.inline-confirm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}
+.inline-confirm input{flex:1 1 200px}
+.ro-dep{border:1px solid var(--line);border-radius:7px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.ro-dep h3 small{font-family:var(--f-mono);font-weight:400;color:var(--muted);font-size:12px;margin-left:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:6px;z-index:50;font-size:13px;max-width:calc(100% - 32px)}
+.auth{max-width:440px;margin:24px auto 0;width:100%}
+.auth .card{gap:12px}
+.pwd-rules{font-size:12px;color:var(--muted);margin:0;padding-left:18px}
+footer.note{font-size:12px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+nav.tabs{display:flex;gap:4px}
+.tab{border:1px solid transparent;background:none;color:var(--muted);font:inherit;font-weight:500;padding:6px 12px;border-radius:6px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.pill.recusado{background:var(--bad-soft);color:var(--bad)}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><h1>Preenchimento Gente e Gestão 2027</h1><span>Brasil Terrenos · Orçamento de pessoas</span></div>
+  <nav class="tabs" id="tabs" hidden>
+    <button class="tab" id="tab-painel" aria-selected="true">Painel</button>
+    <button class="tab" id="tab-teste" aria-selected="false">Meu formulário (teste)</button>
+  </nav>
+  <div class="who" id="who" hidden><span id="who-txt"></span><span id="who-role" class="pill liberado"></span><button class="btn sm" id="btn-sair">Sair</button></div>
+</div></header>
+
+<main class="wrap">
+  <section id="v-loading" class="card notice"><h2>Carregando…</h2><p class="desc">Conectando à base do orçamento de Gente e Gestão.</p></section>
+
+  <section id="v-erro" class="card notice" hidden>
+    <h2>Não foi possível conectar</h2>
+    <p class="desc" id="erro-txt">Verifique sua conexão e recarregue a página. Se o problema continuar, fale com a TI.</p>
+  </section>
+
+  <!-- ACESSO -->
+  <section id="v-auth" class="auth" hidden>
+    <form id="f-login" class="card" autocomplete="on">
+      <h2>Entrar</h2>
+      <p class="desc">Use seu e-mail corporativo e a senha criada no primeiro acesso.</p>
+      <label class="f" for="l-email">E-mail corporativo<input type="email" id="l-email" autocomplete="username" placeholder="nome.sobrenome@btsa.com.br"></label>
+      <label class="f" for="l-senha">Senha<input type="password" id="l-senha" autocomplete="current-password"></label>
+      <div class="row"><button class="btn primary" type="submit" id="l-ok">Entrar</button><button class="btn" type="button" id="go-criar">Primeiro acesso</button></div>
+      <p class="msg" id="l-msg"></p>
+      <p class="muted" style="margin:0;font-size:12.5px">Esqueceu a senha? Peça para a Gente e Gestão liberar uma nova. Depois clique em <b>Primeiro acesso</b> e crie a nova senha.</p>
+    </form>
+    <form id="f-criar" class="card" hidden autocomplete="off">
+      <h2>Primeiro acesso: crie sua senha</h2>
+      <p class="desc">Informe seu e-mail corporativo e seu nome e crie a senha que você vai usar para entrar. Também use esta tela quando a Gente e Gestão liberar uma nova senha para você.</p>
+      <label class="f" for="c-email">E-mail corporativo<input type="email" id="c-email" placeholder="nome.sobrenome@btsa.com.br" autocomplete="username"></label>
+      <label class="f" for="c-nome">Nome completo<input type="text" id="c-nome" autocomplete="name"></label>
+      <label class="f" for="c-codigo" id="c-codigo-box" hidden>Código de ativação (só administradores)<input type="text" id="c-codigo" class="keep" autocomplete="off"></label>
+      <label class="f" for="c-senha">Nova senha<input type="password" id="c-senha" autocomplete="new-password"></label>
+      <label class="f" for="c-senha2">Repita a senha<input type="password" id="c-senha2" autocomplete="new-password"></label>
+      <ul class="pwd-rules"><li>Mínimo de 8 caracteres</li><li>Pelo menos uma letra e um número</li><li>Não compartilhe sua senha com ninguém</li></ul>
+      <div class="row"><button class="btn primary" type="submit" id="c-ok">Criar senha e entrar</button><button class="btn" type="button" id="go-login">Já tenho senha</button></div>
+      <p class="msg" id="c-msg"></p>
+    </form>
+  </section>
+
+  <!-- RECUSADO -->
+  <section id="v-recusado" class="card notice" hidden>
+    <h2>Acesso não liberado</h2>
+    <p class="desc">A Gente e Gestão não liberou o seu acesso a este formulário. Se acredita que é um engano, fale com a Kamila Luna.</p>
+  </section>
+
+  <!-- GERENTE (também usado pelos masters na aba de teste) -->
+  <section id="v-ger" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div id="ger-teste" class="banner reopen" hidden><b>Modo teste.</b> Este é o seu próprio formulário de master, para testar e validar o fluxo. Ele aparece no painel marcado como teste e fica fora da exportação de “só devolvidos” de gerentes.</div>
+    <div id="ger-wait" class="card notice" hidden>
+      <h2>Cadastro recebido</h2>
+      <p class="desc" id="ger-wait-txt">Seu acesso foi registrado. A Kamila Luna (Gente e Gestão) vai conferir sua solicitação e informar quais departamentos você preenche. Recarregue a página mais tarde para ver se já foi liberado.</p>
+      <div class="row"><button class="btn" id="btn-recarregar">Verificar agora</button><button class="btn primary" id="btn-auto-lib" hidden>Liberar departamentos para mim</button></div>
+    </div>
+    <div id="ger-main" hidden style="display:flex;flex-direction:column;gap:16px">
+      <div id="ger-banner"></div>
+      <div class="aviso"><span class="t">Importante</span>
+        O que você informar aqui é uma <b>previsão orçamentária</b> e ainda precisa ser <b>aprovada pela diretoria da sua área</b>. Preencher este formulário <b>não substitui</b> a abertura da vaga na <b>Gupy</b> nem o <b>formulário de aprovação de alteração de salário</b>: cada contratação ou reajuste continua seguindo o fluxo normal quando acontecer.
+      </div>
+      <div class="card">
+        <div class="q-title"><h2>Identificação do gestor</h2><span id="ger-status"></span></div>
+        <div class="grid2">
+          <label class="f" for="g-nome">Nome do gestor responsável<input type="text" id="g-nome"></label>
+          <label class="f" for="g-email">E-mail do gestor<input type="email" id="g-email" readonly></label>
+        </div>
+        <label class="check" for="g-ferias"><input type="checkbox" id="g-ferias"><span>Confirmo que já programei as férias da minha equipe no Painel de Gestão para 2027.</span></label>
+        <p class="muted" id="g-ferias-em" style="margin:0;font-size:12.5px" hidden></p>
+      </div>
+      <div class="card">
+        <div class="q-title"><h2>Departamentos liberados para você</h2><span class="muted" id="save-state" style="font-size:12px"></span></div>
+        <div class="deps" id="deps"></div>
+      </div>
+      <div class="card" id="dep-card"></div>
+      <div class="card" id="dev-card">
+        <h2>Devolver para a Kamila</h2>
+        <p class="desc">Quando terminar todos os departamentos, devolva o formulário. Depois da devolução o preenchimento fica <b>travado</b>: para alterar algo, a Gente e Gestão precisa reabrir.</p>
+        <ul id="dev-pend" class="msg err" style="margin:0;padding-left:18px" hidden></ul>
+        <div class="row" id="dev-acts"><button class="btn primary" id="btn-devolver">Devolver para a Kamila</button></div>
+        <p class="msg" id="dev-msg"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MASTER -->
+  <section id="v-mst" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div class="kpis" id="kpis"></div>
+    <div class="card" id="sol-card">
+      <div class="q-title">
+        <div><h2>Solicitações de acesso</h2><p class="desc">Quem criou a senha e ainda não foi liberado. Confira o nome e o e-mail e aprove informando os departamentos, ou recuse.</p></div>
+        <div class="row"><span class="muted" id="m-atualizado" style="font-size:12px"></span><button class="btn" id="m-refresh">Atualizar</button></div>
+      </div>
+      <div class="tbl-box"><table class="list" id="sol-tbl"></table></div>
+    </div>
+    <div class="card" id="m-lib" hidden></div>
+    <div class="card">
+      <div class="q-title">
+        <div><h2>Gerentes liberados</h2><p class="desc">Acompanhe o preenchimento e confira o que foi devolvido. Formulário devolvido fica travado para o gerente até você reabrir.</p></div>
+        <select id="m-filtro" aria-label="Filtrar gerentes"><option value="todos">Todos</option><option value="andamento">Em preenchimento</option><option value="devolvido">Devolvidos</option><option value="teste">Testes dos masters</option></select>
+      </div>
+      <div class="tbl-box"><table class="list" id="m-tbl"></table></div>
+      <p class="msg" id="m-msg"></p>
+    </div>
+    <div class="card" id="m-view" hidden></div>
+    <div class="card" id="rec-card" hidden>
+      <h2>Acessos recusados</h2>
+      <div class="tbl-box"><table class="list" id="rec-tbl"></table></div>
+    </div>
+    <div class="card">
+      <h2>Exportar consolidado</h2>
+      <p class="desc">Baixa todos os registros num só arquivo. O .csv abre no Excel (separador ponto e vírgula); o .json guarda tudo para reprocessar. Os arquivos contêm salários e nomes de colaboradores: guarde em local restrito.</p>
+      <div class="row">
+        <select id="exp-scope" aria-label="O que exportar"><option value="devolvido">Só devolvidos (sem testes)</option><option value="todos">Todos os gerentes (sem testes)</option><option value="tudo">Tudo, inclusive testes</option></select>
+        <button class="btn primary" id="btn-csv">Baixar .csv</button>
+        <button class="btn" id="btn-json">Baixar .json</button>
+      </div>
+      <p class="msg" id="exp-msg"></p>
+    </div>
+  </section>
+
+  <footer class="note">Gente e Gestão · Brasil Terrenos · Ciclo 2027</footer>
+</main>
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
