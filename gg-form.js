@@ -91,7 +91,7 @@ function pendencias(){
   if(!totalRegistros(s))p.push('Adicione ao menos um registro à lista (botão "Adicionar … à lista").');
   SECOES.forEach(function(sel){
     var sec=document.querySelector(sel);if(!sec)return;
-    var cheio=[].some.call(sec.querySelectorAll('input[type=text],input[type=date]'),function(i){return !i.readOnly&&i.value.trim()!==''});
+    var cheio=[].some.call(sec.querySelectorAll('input[type=text],input[type=date]'),function(i){return !i.readOnly&&!i.hasAttribute('data-gg-persistente')&&i.value.trim()!==''});
     if(cheio){
       var nome={'#tab-dept':'Departamento / Obra','#tab-obras':'Obras','#tab-admin':'Unidades Administrativas','#tab-pj':'Prestadores PJ'}[sel];
       p.push('Há dados digitados em "'+nome+'" que ainda não foram adicionados à lista. Clique no botão "Adicionar … à lista" dessa parte (ou apague os campos) antes de devolver.');

@@ -184,10 +184,10 @@
       deve ser informado como <b>MM/AAAA</b> (exemplo: <b>01/2027</b>).
     </div>
     <div class="field-grid">
-      <label for="top-num-empresa">Nº da Empresa
+      <label for="top-num-empresa">Nº da Empresa principal
         <input type="text" id="top-num-empresa" placeholder="Ex.: 756">
       </label>
-      <label for="top-empresa">Nome da Empresa
+      <label for="top-empresa">Nome da Empresa principal
         <input type="text" id="top-empresa" placeholder="Ex.: Cidade Jardim Cáceres">
       </label>
       <label for="top-gestor-nome">Nome do gestor responsável
@@ -212,7 +212,14 @@
 
   <!-- ===================== ABA OBRAS ===================== -->
   <div class="sheet" id="tab-obras" role="tabpanel" aria-labelledby="tab-btn-obras">
+    <p class="aviso-inline">Cada obra pertence a uma empresa. Se você cuida de mais de uma empresa, informe aqui a empresa desta obra antes de adicioná-la à lista. Em branco, vale a Empresa principal da Identificação.</p>
     <div class="field-grid">
+      <label for="obr-num-empresa">Nº da Empresa desta Obra
+        <input type="text" id="obr-num-empresa" data-gg-persistente="1" placeholder="Ex.: 756">
+      </label>
+      <label for="obr-empresa">Nome da Empresa desta Obra
+        <input type="text" id="obr-empresa" data-gg-persistente="1" placeholder="Ex.: Cidade Jardim Cáceres">
+      </label>
       <label for="obr-obra">Obra / Centro de Custo
         <input type="text" id="obr-obra" placeholder="Ex.: 91200">
       </label>
@@ -367,7 +374,14 @@
 
   <!-- ===================== ABA ADMINISTRATIVO ===================== -->
   <div class="sheet" id="tab-admin" role="tabpanel" aria-labelledby="tab-btn-admin" hidden>
+    <p class="aviso-inline">Cada unidade pertence a uma empresa. Se você cuida de mais de uma empresa, informe aqui a empresa desta unidade antes de adicioná-la à lista. Em branco, vale a Empresa principal da Identificação.</p>
     <div class="field-grid">
+      <label for="adm-num-empresa">Nº da Empresa desta Unidade
+        <input type="text" id="adm-num-empresa" data-gg-persistente="1" placeholder="Ex.: 756">
+      </label>
+      <label for="adm-empresa">Nome da Empresa desta Unidade
+        <input type="text" id="adm-empresa" data-gg-persistente="1" placeholder="Ex.: Cidade Jardim Cáceres">
+      </label>
       <label for="adm-unidade">Unidade / Local
         <input type="text" id="adm-unidade" placeholder="Ex.: Escritório Cuiabá">
       </label>
@@ -986,6 +1000,17 @@ window.GG_FORM_MAIN = function(){
     document.getElementById(prefix + '-reaj-count').textContent = '0 registros';
   }
 
+  // ---------- empresa de cada registro ----------
+  function empresaDoCampo(prefix){
+    var num = document.getElementById(prefix + '-num-empresa').value.trim().toUpperCase();
+    var nome = document.getElementById(prefix + '-empresa').value.trim().toUpperCase();
+    if (!num && !nome){ num = state.numeroEmpresa; nome = state.empresa; }
+    return { numeroEmpresa: num || '', empresa: nome || '' };
+  }
+  function numEmp(rec){ return rec.numeroEmpresa || (rec.numeroEmpresa === undefined ? state.numeroEmpresa : '') || ''; }
+  function nomeEmp(rec){ return rec.empresa || (rec.empresa === undefined ? state.empresa : '') || ''; }
+  function rotuloEmp(rec){ var n = numEmp(rec), e = nomeEmp(rec); return (n ? n + ' - ' : '') + (e || '—'); }
+
   // ---------- add record to list ----------
   function setMsg(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
 
@@ -998,7 +1023,7 @@ window.GG_FORM_MAIN = function(){
       var item = document.createElement('div');
       item.className = 'list-item';
       item.innerHTML =
-        '<div><div class="l1">Obra · ' + (rec.obra || '—') + ' (' + (rec.cidade || '—') + ')</div>' +
+        '<div><div class="l1">Obra · ' + (rec.obra || '—') + ' (' + (rec.cidade || '—') + ') · Empresa ' + rotuloEmp(rec) + '</div>' +
         '<div class="l2">' + (rec.cargos || []).length + ' contratação(ões) · ' + (rec.desligamentos || []).length +
         ' desligamento(s) · ' + (rec.transferencias || []).length + ' transferência(s) · ' +
         (rec.treinamentos || []).length + ' treinamento(s)</div></div>' +
@@ -1009,7 +1034,7 @@ window.GG_FORM_MAIN = function(){
       var item = document.createElement('div');
       item.className = 'list-item';
       item.innerHTML =
-        '<div><div class="l1">Administrativo · ' + (rec.unidade || '—') + ' (' + (rec.cidade || '—') + ')</div>' +
+        '<div><div class="l1">Administrativo · ' + (rec.unidade || '—') + ' (' + (rec.cidade || '—') + ') · Empresa ' + rotuloEmp(rec) + '</div>' +
         '<div class="l2">' + (rec.cargos || []).length + ' contratação(ões) · ' + (rec.desligamentos || []).length +
         ' desligamento(s) · ' + (rec.transferencias || []).length + ' transferência(s) · ' +
         (rec.treinamentos || []).length + ' treinamento(s)</div></div>' +
@@ -1074,12 +1099,16 @@ window.GG_FORM_MAIN = function(){
     var transf = quadros.obrTransf.coletar();
     var trein = normalizarTreinamentos(quadros.obrTrein.coletar());
     if (!document.getElementById('obr-obra').value.trim()){ setMsg(msg, 'Informe a Obra / Centro de Custo.', false); return; }
+    var empObra = empresaDoCampo('obr');
+    if (!empObra.numeroEmpresa && !empObra.empresa){ setMsg(msg, 'Informe a empresa desta obra (ou a Empresa principal na Identificação).', false); return; }
     if (cargos.length === 0 && deslig.length === 0 && transf.length === 0 && trein.length === 0){
       setMsg(msg, 'Preencha ao menos um quadro antes de adicionar a obra à lista.', false); return;
     }
     var cadastrada = getToggleVal('obr-cadastrada-group') === 'sim';
     var alojados = getToggleVal('obr-alojados-group') === 'sim';
     var rec = {
+      numeroEmpresa: empObra.numeroEmpresa,
+      empresa: empObra.empresa,
       obra: document.getElementById('obr-obra').value.trim(),
       cidade: document.getElementById('obr-cidade').value.trim(),
       regional: document.getElementById('obr-regional').value.trim(),
@@ -1135,11 +1164,15 @@ window.GG_FORM_MAIN = function(){
     var transf = quadros.admTransf.coletar();
     var trein = normalizarTreinamentos(quadros.admTrein.coletar());
     if (!document.getElementById('adm-unidade').value.trim()){ setMsg(msg, 'Informe a Unidade / Local.', false); return; }
+    var empAdm = empresaDoCampo('adm');
+    if (!empAdm.numeroEmpresa && !empAdm.empresa){ setMsg(msg, 'Informe a empresa desta unidade (ou a Empresa principal na Identificação).', false); return; }
     if (cargos.length === 0 && deslig.length === 0 && transf.length === 0 && trein.length === 0){
       setMsg(msg, 'Preencha ao menos um quadro antes de adicionar a unidade à lista.', false); return;
     }
     var cadastrada = getToggleVal('adm-cadastrada-group') === 'sim';
     var rec = {
+      numeroEmpresa: empAdm.numeroEmpresa,
+      empresa: empAdm.empresa,
       unidade: document.getElementById('adm-unidade').value.trim(),
       cidade: document.getElementById('adm-cidade').value.trim(),
       regional: document.getElementById('adm-regional').value.trim(),
@@ -1210,7 +1243,7 @@ window.GG_FORM_MAIN = function(){
 
     function linhaCargo(tipo, local, rec, c){
       return [
-        tipo, state.numeroEmpresa, state.empresa, local, rec.cidade, rec.regional, c.cargo,
+        tipo, numEmp(rec), nomeEmp(rec), local, rec.cidade, rec.regional, c.cargo,
         c.vinculo || 'CLT', c.motivo, c.competenciaInicioContratacao || '', c.quantidade,
         numBR(c.salario), numBR(c.beneficioAlimentacao), numBR(c.alimentacaoLocal), numBR(c.beneficioTransporte),
         numBR(c.assistenciaMedica), numBR(c.horaExtra), numBR(c.gratificacao), numBR(c.outrosBeneficios),
@@ -1232,21 +1265,21 @@ window.GG_FORM_MAIN = function(){
 
     function blocosDoRegistro(tipo, local, rec){
       (rec.desligamentos || []).forEach(function(d){
-        lines.push(['Desligamento previsto', tipo, state.numeroEmpresa, state.empresa, local, d.cargo,
+        lines.push(['Desligamento previsto', tipo, numEmp(rec), nomeEmp(rec), local, d.cargo,
           (d.motivo || '') + (d.mes ? ' | Mês: ' + d.mes : ''), d.quantidade, ''].map(csvEsc).join(';'));
       });
       (rec.transferencias || []).forEach(function(t){
-        lines.push(['Transferência prevista', tipo, state.numeroEmpresa, state.empresa, local, t.cargo,
+        lines.push(['Transferência prevista', tipo, numEmp(rec), nomeEmp(rec), local, t.cargo,
           'De ' + (t.origem || '—') + ' para ' + (t.destino || '—') + (t.mes ? ' | Mês: ' + t.mes : ''),
           t.quantidade, ''].map(csvEsc).join(';'));
       });
       (rec.treinamentos || []).forEach(function(t){
-        lines.push(['Treinamento', tipo, state.numeroEmpresa, state.empresa, local, t.tipoTreinamento,
+        lines.push(['Treinamento', tipo, numEmp(rec), nomeEmp(rec), local, t.tipoTreinamento,
           'Mês: ' + (t.mes || '') + (t.incluiViagemPDL === true || t.incluiViagemPDL === 'SIM' ? ' | Inclui viagem PDL' : ''),
           t.quantidadePessoas, numBR(t.valor)].map(csvEsc).join(';'));
       });
       (rec.reajustes || []).forEach(function(r){
-        lines.push(['Reajuste mérito/promoção', tipo, state.numeroEmpresa, state.empresa, local,
+        lines.push(['Reajuste mérito/promoção', tipo, numEmp(rec), nomeEmp(rec), local,
           (r.nome || '') + ' (' + (r.cargo || '') + ')', 'Mês: ' + (r.mesPrevisto || ''), '',
           (r.percentualEsperado ?? '') + '%'].map(csvEsc).join(';'));
       });

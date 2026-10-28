@@ -300,21 +300,22 @@ $('btn-csv').addEventListener('click',async function(){
     var blocos={};
     function add(nome,ctx,obj){
       var b=blocos[nome]=blocos[nome]||{keys:[],rows:[]};
-      Object.keys(obj).forEach(function(k){if(obj[k]===null||typeof obj[k]!=='object'){if(b.keys.indexOf(k)<0)b.keys.push(k)}});
+      Object.keys(obj).forEach(function(k){if((k==='numeroEmpresa'||k==='empresa')&&nome.indexOf('>')<0&&nome!=='prestadoresPJ')return;if(obj[k]===null||typeof obj[k]!=='object'){if(b.keys.indexOf(k)<0)b.keys.push(k)}});
       b.rows.push({ctx:ctx,obj:obj});
     }
     L.forEach(function(x){
-      var d=x.dados||{},base=[formInfo(x.form).curto||x.form,PER[x.uid].nome,PER[x.uid].email,nomesStatus[x.status]||x.status,x.devolvido_em?fmtDH(x.devolvido_em):'',d.feriasConfirmadas?'Sim':'Não',d.numeroEmpresa||'',d.empresa||''];
+      var d=x.dados||{},base=[formInfo(x.form).curto||x.form,PER[x.uid].nome,PER[x.uid].email,nomesStatus[x.status]||x.status,x.devolvido_em?fmtDH(x.devolvido_em):'',d.feriasConfirmadas?'Sim':'Não'];
       ['registros','obras','administrativo','prestadoresPJ'].forEach(function(sec){
         (Array.isArray(d[sec])?d[sec]:[]).forEach(function(rec,i){
           var local=rec.obra||rec.unidade||rec.departamento||'';
-          var ctx=base.concat([sec,i+1,local]);
+          var nE=rec.numeroEmpresa!==undefined?rec.numeroEmpresa:(d.numeroEmpresa||''),eE=rec.empresa!==undefined?rec.empresa:(d.empresa||'');
+          var ctx=base.concat([nE,eE,sec,i+1,local]);
           add(sec,ctx,rec);
           Object.keys(rec).forEach(function(k){if(Array.isArray(rec[k]))rec[k].forEach(function(it){add(sec+' > '+k,ctx,it)})});
         });
       });
     });
-    var head=['Formulario','Gerente','Email','Situacao','DevolvidoEm','FeriasConfirmadas','NumeroEmpresaGeral','EmpresaGeral','Secao','Registro','Obra/Unidade/Depto'];
+    var head=['Formulario','Gerente','Email','Situacao','DevolvidoEm','FeriasConfirmadas','NumeroEmpresa','Empresa','Secao','Registro','Obra/Unidade/Depto'];
     var lines=[];
     Object.keys(blocos).forEach(function(nome){
       var b=blocos[nome];
