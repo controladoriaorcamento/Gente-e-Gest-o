@@ -29,13 +29,18 @@ function gravar(){
   if(!pendente||somenteLeitura)return saving;
   saving=saving.then(async function(){
     pendente=false;
-    var dados=JSON.parse(JSON.stringify(ultimo||{}));
-    var r=await sb.from('respostas').upsert({uid:me.id,form:FORM,dados:dados,atualizado_em:new Date().toISOString()},{onConflict:'uid,form'});
+    var base=ultimo||window.GG._inicial;
+    if(!base||typeof base!=='object')return;
+    var dados=JSON.parse(JSON.stringify(base));
+    var linha={uid:me.id,form:FORM,dados:dados,atualizado_em:new Date().toISOString()};
+    var r=await sb.from('respostas').upsert(linha,{onConflict:'uid,form'});
+    if(r.error&&sessaoExpirada(r.error)){await sb.auth.refreshSession();r=await sb.from('respostas').upsert(linha,{onConflict:'uid,form'})}
     if(r.error){pendente=true;setSave('Não foi possível salvar. Verifique a conexão.',true);verificarStatus();return}
     setSave('Salvo às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}));
   }).catch(function(){});
   return saving;
 }
+function sessaoExpirada(e){var t=((e&&(e.message||''))+' '+(e&&e.code||'')).toLowerCase();return t.indexOf('jwt')>=0||t.indexOf('pgrst301')>=0||t.indexOf('401')>=0}
 function setSave(t,err){var el=$('gg-save');if(el){el.textContent=t;el.style.color=err?'var(--danger)':'var(--ink-soft)'}}
 window.addEventListener('beforeunload',function(e){if(pendente&&!somenteLeitura){e.preventDefault();e.returnValue=''}});
 
@@ -117,7 +122,9 @@ function cartaoDevolver(){
     if(b.id==='gg-btn-no')cartaoDevolver();
     if(b.id==='gg-btn-ok'){
       b.disabled=true;clearTimeout(saveT);pendente=true;await gravar();
+      if(pendente){var m0=$('gg-dev-msg');m0.textContent='Não foi possível salvar antes de devolver. Verifique a conexão e tente de novo.';m0.className='msg err';b.disabled=false;return}
       var r=await sb.rpc('devolver_resposta',{p_form:FORM});
+      if(r.error&&sessaoExpirada(r.error)){await sb.auth.refreshSession();r=await sb.rpc('devolver_resposta',{p_form:FORM})}
       if(r.error){var m=$('gg-dev-msg');m.textContent=errTxt(r.error);m.className='msg err';b.disabled=false;return}
       pendente=false;location.reload();
     }
